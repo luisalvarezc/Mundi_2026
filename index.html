@@ -356,7 +356,7 @@
             dlAnchorElem.click();
         }
 
-        // FUNCIÓN MATEMÁTICA CORREGIDA (SÓLO MODIFICA LA LOGICA DE GRUPOS SIN TOCAR LO VISUAL)
+     // FUNCIÓN MATEMÁTICA CORREGIDA (SÓLO MODIFICA LA LOGICA DE GRUPOS SIN TOCAR LO VISUAL)
         async function ejecutarCalculoRankingYGrupos() {
             const tabla = document.getElementById('tabla-ranking');
             tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando estadísticas familiares...</td></tr>`;
@@ -375,6 +375,118 @@
                 
                 const resultadosReales = master.resultados || {};
                 const participantes = master.participantes || [];
+
+                let ranking = [];
+
+                // 1. Procesar cada participante listado en resultados.json
+                for (let archivo of participantes) {
+                    let nombreArchivo = archivo.endsWith('.json') ? archivo : `quiniela_${archivo}.json`;
+                    
+                    try {
+                        let res = await fetch(nombreArchivo + '?t=' + new Date().getTime());
+                        if (!res.ok) continue;
+                        let datosPart = await res.json();
+
+                        let usuario = datosPart.usuario || archivo.replace('quiniela_', '').replace('.json', '');
+                        let puntosUsuario = 0;
+                        let pronosticos = datosPart.pronosticos || {};
+
+                        // Cruzar pronósticos del participante con los resultados oficiales
+                        for (let pId in resultadosReales) {
+                            let real = resultadosReales[pId];
+                            
+                            // CORRECCIÓN SÚPER CLAVE: Busca el ID tanto en formato String ("1") como en Number (1)
+                            let prono = pronosticos[pId] || pronosticos[Number(pId)];
+
+                            if (!prono || prono.L === undefined || prono.V === undefined || prono.L === "" || prono.V === "") {
+                                continue;
+                            }
+
+                            let realL = parseInt(real.L);
+                            let realV = parseInt(real.V);
+                            let pronoL = parseInt(prono.L);
+                            let pronoV = parseInt(prono.V);
+
+                            let tendenciaReal = realL > realV ? 1 : (realL < realV ? -1 : 0);
+                            let tendenciaProno = pronoL > pronoV ? 1 : (pronoL < pronoV ? -1 : 0);
+
+                            // Aplicación estricta de tus reglas familiares de puntaje
+                            if (realL === pronoL && realV === pronoV) {
+                                puntosUsuario += 5; // Marcador Exacto
+                            } else if (tendenciaReal === tendenciaProno && (realL - realV) === (pronoL - pronoV)) {
+                                puntosUsuario += 3; // Diferencia de Goles
+                            } else if (tendenciaReal === tendenciaProno) {
+                                puntosUsuario += 2; // Acierto básico
+                            }
+                        }
+
+                        ranking.push({ usuario: usuario, puntos: puntosUsuario });
+
+                    } catch (err) {
+                        console.warn(`No se pudo leer el archivo del participante: ${nombreArchivo}`, err);
+                    }
+                }
+
+                // 2. Calcular las posiciones matemáticas reales de los equipos en base a resultados.json
+                for (let pId in resultadosReales) {
+                    let real = resultadosReales[pId];
+                    if (real.L === undefined || real.V === undefined || real.L === "" || real.V === "") continue;
+
+                    let realL = parseInt(real.L);
+                    let realV = parseInt(real.V);
+
+                    // Buscar datos de los equipos en tu arreglo original de partidos
+                    let partidoInfo = partidos.find(p => String(p.id) === String(pId));
+                    if (!partidoInfo) continue;
+
+                    let eqL = partidoInfo.local;
+                    let eqV = partidoInfo.visitante;
+
+                    let objL = equiposMundial[eqL];
+                    let objV = equiposMundial[eqV];
+
+                    if (objL && objV) {
+                        objL.pj++; objV.pj++;
+                        objL.gf += realL; objL.gc += realV;
+                        objV.gf += realV; objV.gc += realL;
+
+                        if (realL > realV) {
+                            objL.pg++; objL.pts += 3; objV.pp++;
+                        } else if (realL < realV) {
+                            objV.pg++; objV.pts += 3; objL.pp++;
+                        } else {
+                            objL.pe++; objV.pe++; objL.pts += 1; objV.pts += 1;
+                        }
+                    }
+                }
+
+                // 3. Renderizar y actualizar el componente visual del Ranking Familiar
+                ranking.sort((a, b) => b.puntos - a.puntos);
+                tabla.innerHTML = '';
+                
+                if (ranking.length === 0) {
+                    tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados o falta configurar 'resultados.json'.</td></tr>`;
+                } else {
+                    ranking.forEach((player, index) => {
+                        let medalla = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}`;
+                        tabla.insertAdjacentHTML('beforeend', `
+                            <tr class="hover:bg-slate-800/30 transition">
+                                <td class="p-4 text-center font-bold text-base">${medalla}</td>
+                                <td class="p-4 text-white font-bold">${player.usuario}</td>
+                                <td class="p-4 text-center text-emerald-400 font-extrabold text-base">${player.puntos} pts</td>
+                            </tr>
+                        `);
+                    });
+                }
+
+                // 4. Llamar a tu función existente que dibuja los grupos en pantalla
+                actualizarTablasGruposVisual();
+
+            } catch (error) {
+                console.error(error);
+                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Error en la configuración de los datos o en 'resultados.json'.</td></tr>`;
+            }
+        }
 
                 // PROCESAR SÓLO LOS PARTIDOS QUE SÍ TIENEN GOLES REALES CONFIRMADOS
                 partidosFaseGrupos.forEach(partido => {
