@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiniela Mundial 2026 🏆</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css\">
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
 
@@ -15,484 +15,510 @@
                 <i class="fa-solid fa-trophy mr-2 animate-pulse"></i>QUINIELA FAMILIAR 2026
             </h1>
             <div class="flex flex-wrap gap-1 justify-center">
-                <button onclick="cambiarPestaña('pronosticos')" id="btn-pronosticos" class="bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
-                    <i class="fa-solid fa-pen-to-square mr-1"></i> Pronósticos
+                <button onclick="cambiarPestaña('pronosticos')" id="btn-pronosticos" class="bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-emerald-400 shadow-md">
+                    <i class="fa-solid fa-clipboard-list mr-1"></i>Mi Pronóstico
                 </button>
-                <button onclick="cambiarPestaña('tablas')" id="btn-tablas" class="text-slate-400 hover:text-white font-medium px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
-                    <i class="fa-solid fa-table-list mr-1"></i> Grupos
+                <button onclick="cambiarPestaña('ranking')" id="btn-ranking" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all shadow-md">
+                    <i class="fa-solid fa-chart-line mr-1"></i>Ranking y Grupos
                 </button>
-                <button onclick="cambiarPestaña('ranking')" id="btn-ranking" class="text-slate-400 hover:text-white font-medium px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
-                    <i class="fa-solid fa-ranking-star mr-1"></i> Ranking
-                </button>
-                <button onclick="cambiarPestaña('admin')" id="btn-admin" class="text-slate-400 hover:text-white font-medium px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
-                    <i class="fa-solid fa-user-gear mr-1"></i> Admin
+                <button onclick="cambiarPestaña('admin')" id="btn-admin" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all shadow-md">
+                    <i class="fa-solid fa-user-gear mr-1"></i>Admin
                 </button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto p-4 md:p-6">
+    <main class="max-w-4xl mx-auto p-4 md:p-6 pb-24">
         
-        <section id="sec-pronosticos" class="space-y-6">
-            <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl">
-                <h2 class="text-xl font-bold mb-3 text-emerald-400 flex items-center"><i class="fa-solid fa-user mr-2"></i> Identificación</h2>
-                <label class="block text-xs uppercase font-bold tracking-wider text-slate-400 mb-2">Tu Nombre Completo / Apodo Familiar</label>
-                <input type="text" id="nombre-usuario" placeholder="Ej: Tío Carlos, Primo Luis..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 font-semibold transition">
-            </div>
-            
-            <div class="flex justify-between items-center bg-slate-800/50 p-4 rounded-xl border border-slate-700/60">
-                <h3 class="font-bold text-lg text-slate-200">Fase de Grupos</h3>
-                <span class="bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-bold border border-emerald-500/20">48 Partidos Disponibles</span>
-            </div>
-            
-            <div id="contenedor-partidos-pronosticos" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                </div>
-            
-            <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl text-center space-y-4">
-                <p class="text-sm text-slate-400">Una vez que completes todos tus marcadores, genera tu archivo de jugada y envíaselo al administrador por WhatsApp.</p>
-                <button onclick="descargarPronosticos()" class="w-full md:w-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition transform active:scale-95 cursor-pointer text-base">
-                    <i class="fa-solid fa-file-arrow-down mr-2 text-lg"></i> Descargar y Guardar Mi Jugada
-                </button>
-            </div>
-        </section>
-
-        <section id="sec-tablas" class="hidden space-y-6">
-            <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl">
-                <h2 class="text-xl font-bold mb-2 text-emerald-400 flex items-center"><i class="fa-solid fa-table-list mr-2"></i> Tabla de Posiciones de Grupos Reales</h2>
-                <p class="text-sm text-slate-400 mb-4">Así marchan los grupos oficiales del mundial según los resultados reales cargados.</p>
-                <div id="contenedor-grupos" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    </div>
-            </div>
-        </section>
-
-        <section id="sec-ranking" class="hidden space-y-6">
-            <div class="bg-slate-800 rounded-2xl border border-slate-700 shadow-xl overflow-hidden">
-                <div class="p-6 bg-gradient-to-r from-slate-800 to-slate-800/40 border-b border-slate-700">
-                    <h2 class="text-xl font-bold text-emerald-400 flex items-center"><i class="fa-solid fa-ranking-star mr-2"></i> Tabla General de Posiciones Familiar</h2>
-                    <p class="text-sm text-slate-400 mt-1">¡Acierto exacto = 5 pts | Diferencia de goles o empate = 3 pts | Acierto de ganador = 2 pts!</p>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-900/60 text-slate-400 uppercase text-xs font-bold tracking-wider border-b border-slate-700">
-                                <th class="p-4 text-center w-20">Pos</th>
-                                <th class="p-4">Participante</th>
-                                <th class="p-4 text-center w-32">Puntos Totales</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-ranking" class="divide-y divide-slate-700/50">
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <section id="sec-admin" class="hidden space-y-6">
-            <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl space-y-4">
-                <h2 class="text-xl font-bold text-rose-400 flex items-center"><i class="fa-solid fa-user-gear mr-2"></i> Panel de Control del Administrador</h2>
+        <div id="pestaña-pronosticos" class="space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 backdrop-blur-sm">
                 <div>
-                    <label class="block text-xs uppercase font-bold tracking-wider text-slate-400 mb-2">Contraseña de Seguridad</label>
-                    <input type="password" id="pass-admin" placeholder="Ingresa la clave de admin..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-rose-500 transition">
+                    <h2 class="text-xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-user text-emerald-400"></i> Tu Identificación</h2>
+                    <p class="text-xs text-slate-400 mt-1">Ingresa tu nombre antes de empezar a llenar tus marcadores.</p>
                 </div>
-                <button onclick="verificarAdmin()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition cursor-pointer">
-                    Acceder al Panel
+                <input type="text" id="nombre-usuario" placeholder="Ej. Tío Carlos" class="w-full sm:w-64 bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-bold placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-all shadow-inner text-sm">
+            </div>
+
+            <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
+                <div class="bg-slate-750 p-4 border-b border-slate-700 flex justify-between items-center">
+                    <h2 class="text-lg font-extrabold text-white tracking-wide">Fase de Grupos</h2>
+                    <span class="bg-emerald-500/10 text-emerald-400 font-bold px-2.5 py-1 rounded-full text-xs border border-emerald-500/20">48 partidos</span>
+                </div>
+                <div id="contenedor-partidos" class="divide-y divide-slate-700/50 p-2 max-h-[60vh] overflow-y-auto"></div>
+            </div>
+
+            <div class="flex justify-center pt-2">
+                <button onclick="guardarYDescargarPronostico()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-base px-8 py-3.5 rounded-2xl shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-floppy-disk text-lg"></i> Guardar y Descargar mi Quiniela
                 </button>
+            </div>
+        </div>
+
+        <div id="pestaña-ranking" class="hidden space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm h-fit">
+                    <div class="bg-gradient-to-r from-emerald-600 to-emerald-500 p-4 shadow-md">
+                        <h2 class="text-lg font-black text-slate-950 tracking-wide flex items-center justify-between">
+                            <span><i class="fa-solid fa-ranking-star mr-1"></i> RANKING GENERAL</span>
+                            <i class="fa-solid fa-crown opacity-40"></i>
+                        </h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900/50 text-slate-400 text-xxs font-bold uppercase border-b border-slate-700/50">
+                                    <th class="p-3 text-center w-12">Pos</th>
+                                    <th class="p-3">Nombre</th>
+                                    <th class="p-3 text-center w-24">Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-ranking" class="divide-y divide-slate-700/40"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 space-y-6">
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                        <h3 class="text-sm font-bold text-slate-300"><i class="fa-solid fa-circle-info text-emerald-400 mr-1"></i> Posiciones de Grupos Oficiales</h3>
+                        <span class="text-xxs text-slate-400">Calculado según resultados reales subidos</span>
+                    </div>
+                    <div id="contenedor-tablas-grupos" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pestaña-admin" class="hidden space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-xl backdrop-blur-sm space-y-4">
+                <h2 class="text-xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-lock text-rose-400"></i> Panel de Administración</h2>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="password" id="pass-admin" placeholder="Contraseña de Administrador" class="bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 transition-all text-sm w-full sm:w-64">
+                    <button onclick="autenticarAdmin()" class="bg-rose-500 hover:bg-rose-400 text-white font-bold px-5 py-2.5 rounded-xl transition-all shadow-md text-sm cursor-pointer">Ingresar</button>
+                </div>
             </div>
 
             <div id="panel-admin-contenido" class="hidden space-y-6">
-                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl space-y-4">
-                    <h3 class="text-lg font-bold text-slate-200 flex items-center"><i class="fa-solid fa-users mr-2"></i> 1. Administrar Participantes</h3>
-                    <div>
-                        <label class="block text-xs uppercase font-bold tracking-wider text-slate-400 mb-2">Listado de archivos JSON de participantes (separados por comas, sin la ruta 'jugadas/')</label>
-                        <textarea id="lista-participantes" rows="2" placeholder="ejemplo: quiniela_luisprueba.json, quiniela_tio_carlos.json" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 font-mono text-sm transition"></textarea>
+                <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-xl backdrop-blur-sm space-y-3">
+                    <h3 class="text-base font-black text-white"><i class="fa-solid fa-users text-emerald-400 mr-1"></i> Gestión de Participantes</h3>
+                    <label class="block text-xs text-slate-400">Ingresa los nombres exactos de los archivos JSON de tu familia en la carpeta 'jugadas', separados por comas (sin espacios):</label>
+                    <textarea id="admin-participantes" rows="2" placeholder="Ej: quiniela_luisprueba.json,quiniela_tio_carlos.json" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl p-3 text-white font-mono text-xs focus:outline-none focus:border-emerald-500"></textarea>
+                </div>
+
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
+                    <div class="bg-slate-750 p-4 border-b border-slate-700">
+                        <h3 class="text-base font-black text-white"><i class="fa-solid fa-square-poll-horizontal text-rose-400 mr-1"></i> Cargar Resultados Reales del Mundial</h3>
+                        <p class="text-xxs text-slate-400 mt-0.5">Escribe los marcadores que van ocurriendo en la vida real.</p>
                     </div>
+                    <div id="contenedor-partidos-admin" class="divide-y divide-slate-700/50 p-2 max-h-[50vh] overflow-y-auto"></div>
                 </div>
 
-                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl">
-                    <h3 class="text-lg font-bold text-slate-200 mb-4 flex items-center"><i class="fa-solid fa-soccer-ball mr-2"></i> 2. Ingresar Resultados Reales de los Partidos</h3>
-                    <div id="contenedor-partidos-admin" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        </div>
-                </div>
-
-                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl text-center space-y-4">
-                    <p class="text-sm text-slate-400">Al descargar este archivo, deberás subirlo a la raíz de tu repositorio en GitHub para sobreescribir el 'resultados.json' anterior.</p>
-                    <button onclick="descargarResultadosJson()" class="w-full md:w-auto bg-rose-500 hover:bg-rose-400 text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition transform active:scale-95 cursor-pointer text-base">
-                        <i class="fa-solid fa-cloud-arrow-down mr-2 text-lg"></i> Generar y Descargar resultados.json
+                <div class="flex justify-center">
+                    <button onclick="guardarYDescargarResultadosReales()" class="bg-rose-500 hover:bg-rose-400 text-white font-black text-base px-8 py-3.5 rounded-2xl shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-down text-lg"></i> Generar y Descargar resultados.json
                     </button>
                 </div>
             </div>
-        </section>
-
+        </div>
     </main>
 
-    <footer class="text-center p-8 text-xs text-slate-500 font-medium tracking-wide">
-        Quiniela Familiar Mundial 2026 • Desarrollado con ⚽ y 🔥
-    </footer>
-
     <script>
-        // Configuración Base de Datos de los 48 Partidos del Mundial 2026 (Fase de Grupos)
-        const partidos = [
-            { id: 1, grupo: "A", local: "México 🇲🇽", visitante: "Sudáfrica 🇿🇦" },
-            { id: 2, grupo: "A", local: "Estados Unidos 🇺🇸", visitante: "Marruecos 🇲🇦" },
-            { id: 3, grupo: "A", local: "México 🇲🇽", visitante: "Marruecos 🇲🇦" },
-            { id: 4, grupo: "A", local: "Estados Unidos 🇺🇸", visitante: "Sudáfrica 🇿🇦" },
-            { id: 5, grupo: "A", local: "Sudáfrica 🇿🇦", visitante: "Marruecos 🇲🇦" },
-            { id: 6, grupo: "A", local: "México 🇲🇽", visitante: "Estados Unidos 🇺🇸" },
-            { id: 7, grupo: "B", local: "Canadá 🇨🇦", visitante: "Argelia 🇩🇿" },
-            { id: 8, grupo: "B", local: "Corea del Sur 🇰🇷", visitante: "Ecuador 🇪🇨" },
-            { id: 9, grupo: "B", local: "Canadá 🇨🇦", visitante: "Ecuador 🇪🇨" },
-            { id: 10, grupo: "B", local: "Corea del Sur 🇰🇷", visitante: "Argelia 🇩🇿" },
-            { id: 11, grupo: "B", local: "Argelia 🇩🇿", visitante: "Ecuador 🇪🇨" },
-            { id: 12, grupo: "B", local: "Canadá 🇨🇦", visitante: "Corea del Sur 🇰🇷" },
-            { id: 13, grupo: "C", local: "Uruguay 🇺🇾", visitante: "Jamaica 🇯🇲" },
-            { id: 14, grupo: "C", local: "Japón 🇯🇵", visitante: "Austria 🇦🇹" },
-            { id: 15, grupo: "C", local: "Uruguay 🇺🇾", visitante: "Austria 🇦🇹" },
-            { id: 16, grupo: "C", local: "Japón 🇯🇵", visitante: "Jamaica 🇯🇲" },
-            { id: 17, grupo: "C", local: "Jamaica 🇯🇲", visitante: "Austria 🇦🇹" },
-            { id: 18, grupo: "C", local: "Uruguay 🇺🇾", visitante: "Japón 🇯🇵" },
-            { id: 19, grupo: "D", local: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿", visitante: "Omán 🇴🇲" },
-            { id: 20, grupo: "D", local: "Suiza 🇨🇭", visitante: "Ghana 🇬🇭" },
-            { id: 21, grupo: "D", local: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿", visitante: "Ghana 🇬🇭" },
-            { id: 22, grupo: "D", local: "Suiza 🇨🇭", visitante: "Omán 🇴🇲" },
-            { id: 23, grupo: "D", local: "Omán 🇴🇲", visitante: "Ghana 🇬🇭" },
-            { id: 24, grupo: "D", local: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿", visitante: "Suiza 🇨🇭" },
-            { id: 25, grupo: "E", local: "Países Bajos 🇳🇱", visitante: "Curazao 🇨🇼" },
-            { id: 26, grupo: "E", local: "Irán 🇮🇷", visitante: "Dinamarca 🇩🇰" },
-            { id: 27, grupo: "E", local: "Países Bajos 🇳🇱", visitante: "Dinamarca 🇩🇰" },
-            { id: 28, grupo: "E", local: "Irán 🇮🇷", visitante: "Curazao 🇨🇼" },
-            { id: 29, grupo: "E", local: "Curazao 🇨🇼", visitante: "Dinamarca 🇩🇰" },
-            { id: 30, grupo: "E", local: "Países Bajos 🇳🇱", visitante: "Irán 🇮🇷" },
-            { id: 31, grupo: "F", local: "Croacia 🇭🇷", visitante: "Níger 🇳🇪" },
-            { id: 32, grupo: "F", local: "Colombia 🇨🇴", visitante: "Irak 🇮🇶" },
-            { id: 33, grupo: "F", local: "Croacia 🇭🇷", visitante: "Irak 🇮🇶" },
-            { id: 34, grupo: "F", local: "Colombia 🇨🇴", visitante: "Níger 🇳🇪" },
-            { id: 35, grupo: "F", local: "Níger 🇳🇪", visitante: "Irak 🇮🇶" },
-            { id: 36, grupo: "F", local: "Croacia 🇭🇷", visitante: "Colombia 🇨🇴" },
-            { id: 37, grupo: "G", local: "Portugal 🇵🇹", visitante: "Zambia 🇿🇲" },
-            { id: 38, grupo: "G", local: "Bélgica 🇧🇪", visitante: "Chile 🇨🇱" },
-            { id: 39, grupo: "G", local: "Portugal 🇵🇹", visitante: "Chile 🇨🇱" },
-            { id: 40, grupo: "G", local: "Bélgica 🇧🇪", visitante: "Zambia 🇿🇲" },
-            { id: 41, grupo: "G", local: "Zambia 🇿🇲", visitante: "Chile 🇨🇱" },
-            { id: 42, grupo: "G", local: "Portugal 🇵🇹", visitante: "Bélgica 🇧🇪" },
-            { id: 43, grupo: "H", local: "España 🇪🇸", visitante: "Panamá 🇵🇦" },
-            { id: 44, grupo: "H", local: "Italia 🇮🇹", visitante: "Camerún 🇨🇲" },
-            { id: 45, grupo: "H", local: "España 🇪🇸", visitante: "Camerún 🇨🇲" },
-            { id: 46, grupo: "H", local: "Italia 🇮🇹", visitante: "Panamá 🇵🇦" },
-            { id: 47, grupo: "H", local: "Panamá 🇵🇦", visitante: "Camerún 🇨🇲" },
-            { id: 48, grupo: "H", local: "España 🇪🇸", visitante: "Italia 🇮🇹" }
+        // CONFIGURACIÓN INTERNA: Equipos y Estructura del Mundial de Fútbol 2026
+        const equiposMundial = {
+            "México": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A" },
+            "Sudáfrica": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A" },
+            "Uruguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A" },
+            "Francia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A" },
+            "Argentina": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B" },
+            "Nigeria": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B" },
+            "Corea del Sur": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B" },
+            "Grecia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B" },
+            "Inglaterra": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C" },
+            "EEUU": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C" },
+            "Argelia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C" },
+            "Eslovenia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C" },
+            "Alemania": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D" },
+            "Australia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D" },
+            "Serbia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D" },
+            "Ghana": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D" },
+            "Países Bajos": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E" },
+            "Dinamarca": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E" },
+            "Japón": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E" },
+            "Camerún": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E" },
+            "Italia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F" },
+            "Paraguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F" },
+            "Nueva Zelanda": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F" },
+            "Eslovaquia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F" },
+            "Brasil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G" },
+            "Corea del Norte": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G" },
+            "Costa de Marfil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G" },
+            "Portugal": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G" },
+            "España": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H" },
+            "Suiza": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H" },
+            "Honduras": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H" },
+            "Chile": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H" }
+        };
+
+        const partidosFaseGrupos = [
+            { id: 1, grupo: "A", local: "México", visitante: "Sudáfrica" },
+            { id: 2, grupo: "A", local: "Uruguay", visitante: "Francia" },
+            { id: 3, grupo: "B", local: "Corea del Sur", visitante: "Grecia" },
+            { id: 4, grupo: "B", local: "Argentina", visitante: "Nigeria" },
+            { id: 5, grupo: "C", local: "Inglaterra", visitante: "EEUU" },
+            { id: 6, grupo: "C", local: "Argelia", visitante: "Eslovenia" },
+            { id: 7, grupo: "D", local: "Alemania", visitante: "Australia" },
+            { id: 8, grupo: "D", local: "Serbia", visitante: "Ghana" },
+            { id: 9, grupo: "E", local: "Países Bajos", visitante: "Dinamarca" },
+            { id: 10, grupo: "E", local: "Japón", visitante: "Camerún" },
+            { id: 11, grupo: "F", local: "Italia", visitante: "Paraguay" },
+            { id: 12, grupo: "F", local: "Nueva Zelanda", visitante: "Eslovaquia" },
+            { id: 13, grupo: "G", local: "Costa de Marfil", visitante: "Portugal" },
+            { id: 14, group: "G", local: "Brasil", visitante: "Corea del Norte" },
+            { id: 15, grupo: "H", local: "Honduras", visitante: "Chile" },
+            { id: 16, grupo: "H", local: "España", visitante: "Suiza" },
+            { id: 17, grupo: "A", local: "Sudáfrica", visitante: "Uruguay" },
+            { id: 18, grupo: "A", local: "Francia", visitante: "México" },
+            { id: 19, grupo: "B", local: "Grecia", visitante: "Nigeria" },
+            { id: 20, grupo: "B", local: "Argentina", visitante: "Corea del Sur" },
+            { id: 21, grupo: "C", local: "Alemania", visitante: "Serbia" },
+            { id: 22, grupo: "C", local: "Eslovenia", visitante: "EEUU" },
+            { id: 23, grupo: "D", local: "Inglaterra", visitante: "Argelia" },
+            { id: 24, grupo: "D", local: "Ghana", visitante: "Australia" },
+            { id: 25, grupo: "E", local: "Países Bajos", visitante: "Japón" },
+            { id: 26, grupo: "E", local: "Camerún", visitante: "Dinamarca" },
+            { id: 27, grupo: "F", local: "Eslovaquia", visitante: "Paraguay" },
+            { id: 28, grupo: "F", local: "Italia", visitante: "Nueva Zelanda" },
+            { id: 29, grupo: "G", local: "Brasil", visitante: "Costa de Marfil" },
+            { id: 30, grupo: "G", local: "Portugal", visitante: "Corea del Norte" },
+            { id: 31, grupo: "H", local: "Chile", visitante: "Suiza" },
+            { id: 32, grupo: "H", local: "España", visitante: "Honduras" },
+            { id: 33, grupo: "A", local: "México", visitante: "Uruguay" },
+            { id: 34, grupo: "A", local: "Francia", visitante: "Sudáfrica" },
+            { id: 35, grupo: "B", local: "Nigeria", visitante: "Corea del Sur" },
+            { id: 36, grupo: "B", local: "Grecia", visitante: "Argentina" },
+            { id: 37, grupo: "C", local: "Eslovenia", visitante: "Inglaterra" },
+            { id: 38, grupo: "C", local: "EEUU", visitante: "Argelia" },
+            { id: 39, grupo: "D", local: "Ghana", visitante: "Alemania" },
+            { id: 40, grupo: "D", local: "Australia", visitante: "Serbia" },
+            { id: 41, grupo: "E", local: "Slovakia", visitante: "Italia" },
+            { id: 42, grupo: "E", local: "Paraguay", visitante: "Nueva Zelanda" },
+            { id: 43, grupo: "F", local: "Dinamarca", visitante: "Japón" },
+            { id: 44, grupo: "F", local: "Camerún", visitante: "Países Bajos" },
+            { id: 45, grupo: "G", local: "Portugal", visitante: "Brasil" },
+            { id: 46, grupo: "G", local: "Corea del Norte", visitante: "Costa de Marfil" },
+            { id: 47, grupo: "H", local: "Chile", visitante: "España" },
+            { id: 48, grupo: "H", local: "Suiza", visitante: "Honduras" }
         ];
 
-        // Estado Global de Datos de la App
-        let resultadosRealesGlobales = {};
-        let listaParticipantesGlobales = [];
-
-        // Lógica de Pestañas
-        function cambiarPestaña(pestana) {
-            // Ocultar todas
-            ['pronosticos', 'tablas', 'ranking', 'admin'].forEach(p => {
-                document.getElementById(`sec-${p}`).classList.add('hidden');
-                document.getElementById(`btn-${p}`).className = "text-slate-400 hover:text-white font-medium px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition";
+        // Cambiar entre pestañas de navegación
+        function cambiarPestaña(idPestaña) {
+            ['pronosticos', 'ranking', 'admin'].forEach(p => {
+                document.getElementById(`pestaña-${p}`).classList.add('hidden');
+                document.getElementById(`btn-${p}`).className = "bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all shadow-md";
             });
-            // Mostrar seleccionada
-            document.getElementById(`sec-${pestana}`).classList.remove('hidden');
+            document.getElementById(`pestaña-${idPestaña}`).classList.remove('hidden');
             
-            // Estilo de botón activo
-            let colorBtn = 'bg-emerald-500 text-slate-950';
-            if(pestana === 'admin') colorBtn = 'bg-rose-500 text-white';
-            document.getElementById(`btn-${pestana}`).className = `${colorBtn} font-bold px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition shadow-md`;
-            
-            // Acciones al cambiar pestaña
-            if(pestana === 'ranking') {
-                calcularYMostrarRanking();
-            }
-            if(pestana === 'tablas') {
-                renderizarGruposReales();
+            if (idPestaña === 'pronosticos') {
+                document.getElementById(`btn-${idPestaña}`).className = "bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-emerald-400 shadow-md";
+            } else if (idPestaña === 'ranking') {
+                document.getElementById(`btn-${idPestaña}`).className = "bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-emerald-400 shadow-md";
+                ejecutarCalculoRankingYGrupos();
+            } else if (idPestaña === 'admin') {
+                document.getElementById(`btn-${idPestaña}`).className = "bg-rose-500 text-white font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-rose-400 shadow-md";
             }
         }
 
-        // Renderizar Partidos en Interfaz de Pronósticos y Admin
+        // Renderizar partidos en la pestaña de Pronósticos del usuario
         function cargarPartidos() {
-            const contenedor = document.getElementById('contenedor-partidos-pronosticos');
-            const contenedorAdmin = document.getElementById('contenedor-partidos-admin');
-            contenedor.innerHTML = '';
-            contenedorAdmin.innerHTML = '';
-
-            partidos.forEach(p => {
-                // Tarjeta Jugador
-                let htmlPartido = `
-                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between shadow-md hover:border-slate-600 transition">
-                        <div class="flex justify-between items-center mb-2 border-b border-slate-700/50 pb-1.5">
-                            <span class="bg-slate-900 text-slate-400 font-bold px-2 py-0.5 rounded text-xs">GRUPO ${p.grupo}</span>
-                            <span class="text-xs text-slate-500 font-semibold">Partido #${p.id}</span>
+            const container = document.getElementById('contenedor-partidos');
+            container.innerHTML = '';
+            partidosFaseGrupos.forEach(p => {
+                container.insertAdjacentHTML('beforeend', `
+                    <div class="flex items-center justify-between p-3 hover:bg-slate-800/20 transition gap-2">
+                        <div class="flex items-center gap-2 w-1/3 justify-end text-right">
+                            <span class="text-xs md:text-sm font-semibold text-slate-200">${p.local}</span>
                         </div>
-                        <div class="grid grid-cols-3 items-center gap-2 py-2">
-                            <div class="text-right pr-1 font-bold text-sm md:text-base text-slate-200 truncate">${p.local}</div>
-                            <div class="flex items-center justify-center gap-1.5">
-                                <input type="number" min="0" id="p-local-${p.id}" class="w-10 h-10 bg-slate-900 border border-slate-700 text-center font-extrabold text-lg text-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
-                                <span class="text-slate-600 font-bold text-xs">-</span>
-                                <input type="number" min="0" id="p-visitante-${p.id}" class="w-10 h-10 bg-slate-900 border border-slate-700 text-center font-extrabold text-lg text-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
-                            </div>
-                            <div class="text-left pl-1 font-bold text-sm md:text-base text-slate-200 truncate">${p.visitante}</div>
+                        <div class="flex items-center justify-center gap-1.5 bg-slate-950/40 p-1.5 rounded-xl border border-slate-700/40 shrink-0">
+                            <input type="number" min="0" id="p-${p.id}-L" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center font-black text-sm text-emerald-400 py-1 focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:margin-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:margin-0 [&::-webkit-inner-spin-button]:appearance-none">
+                            <span class="text-slate-600 text-xs font-bold px-0.5">vs</span>
+                            <input type="number" min="0" id="p-${p.id}-V" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center font-black text-sm text-emerald-400 py-1 focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:margin-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:margin-0 [&::-webkit-inner-spin-button]:appearance-none">
+                        </div>
+                        <div class="flex items-center gap-2 w-1/3 justify-start text-left">
+                            <span class="text-xs md:text-sm font-semibold text-slate-200">${p.visitante}</span>
+                            <span class="bg-slate-800 text-slate-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-slate-700">GRUP ${p.grupo}</span>
                         </div>
                     </div>
-                `;
-                contenedor.insertAdjacentHTML('beforeend', htmlPartido);
-
-                // Tarjeta Admin
-                let htmlAdmin = `
-                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="bg-slate-800 text-slate-400 font-bold px-2 py-0.5 rounded text-xs">GRUPO ${p.grupo}</span>
-                            <span class="text-xs text-slate-500">ID: ${p.id}</span>
-                        </div>
-                        <div class="grid grid-cols-3 items-center gap-1">
-                            <div class="text-right font-medium text-xs text-slate-300 truncate">${p.local}</div>
-                            <div class="flex items-center justify-center gap-1">
-                                <input type="number" min="0" id="adm-local-${p.id}" class="w-9 h-9 bg-slate-800 border border-slate-700 text-center font-bold text-sm text-rose-400 rounded-lg focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
-                                <input type="number" min="0" id="adm-visitante-${p.id}" class="w-9 h-9 bg-slate-800 border border-slate-700 text-center font-bold text-sm text-rose-400 rounded-lg focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
-                            </div>
-                            <div class="text-left font-medium text-xs text-slate-300 truncate">${p.visitante}</div>
-                        </div>
-                    </div>
-                `;
-                contenedorAdmin.insertAdjacentHTML('beforeend', htmlAdmin);
+                `);
             });
         }
 
-        // Exportar Jugada de Participante a JSON
-        function descargarPronosticos() {
-            const nombre = document.getElementById('nombre-usuario').value.trim();
-            if (!nombre) {
-                alert("⚠️ Por favor escribe tu nombre antes de descargar.");
+        // Descargar el pronóstico personalizado del usuario en formato JSON
+        function guardarYDescargarPronostico() {
+            const usuario = document.getElementById('nombre-usuario').value.trim();
+            if(!usuario) {
+                alert("⚠️ Por favor escribe tu nombre antes de guardar la quiniela.");
                 return;
             }
-
-            let pronosticos = {};
-            for (let p of partidos) {
-                const l = document.getElementById(`p-local-${p.id}`).value;
-                const v = document.getElementById(`p-visitante-${p.id}`).value;
-                if (l === '' || v === '') {
-                    alert(`⚠️ Te falta completar el marcador del partido #${p.id}`);
-                    return;
-                }
-                pronosticos[p.id] = { L: parseInt(l), V: parseInt(v) };
-            }
-
-            const data = { usuario: nombre, pronosticos: pronosticos };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
             
-            let nombreLimpio = nombre.toLowerCase().replace(/[^a-z0-9]/g, "");
-            a.download = `quiniela_${nombreLimpio}.json`;
-            a.click();
+            let pronosticos = {};
+            partidosFaseGrupos.forEach(p => {
+                const gL = document.getElementById(`p-${p.id}-L`).value;
+                const gV = document.getElementById(`p-${p.id}-V`).value;
+                if(gL !== "" && gV !== "") {
+                    pronosticos[p.id] = { L: parseInt(gL), V: parseInt(gV) };
+                }
+            });
+
+            const estructuraJson = { usuario: usuario, pronosticos: pronosticos };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(estructuraJson, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            
+            const nombreArchivoClean = usuario.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", `quiniela_${nombreArchivoClean}.json`);
+            dlAnchorElem.click();
         }
 
-        // Control de Acceso Panel Admin
-        function verificarAdmin() {
-            const pass = document.getElementById('pass-admin').value;
-            if (pass === "admin123") { // Contraseña por defecto súper sencilla
+        // Autenticar la pestaña de administrador
+        function autenticarAdmin() {
+            if(document.getElementById('pass-admin').value === 'admin123') {
                 document.getElementById('panel-admin-contenido').classList.remove('hidden');
-                alert("🔓 Acceso concedido.");
+                cargarPartidosAdmin();
             } else {
                 alert("❌ Contraseña incorrecta.");
             }
         }
 
-        // Exportar resultados.json (Admin)
-        function descargarResultadosJson() {
-            const listaTxt = document.getElementById('lista-participantes').value;
-            const nombresArchivos = listaTxt.split(',').map(s => s.trim()).filter(s => s !== "");
-
-            let resultados = {};
-            for (let p of partidos) {
-                const l = document.getElementById(`adm-local-${p.id}`).value;
-                const v = document.getElementById(`adm-visitante-${p.id}`).value;
-                if (l !== '' && v !== '') {
-                    resultados[p.id] = { L: parseInt(l), V: parseInt(v) };
-                }
-            }
-
-            const data = { participantes: nombresArchivos, resultados: resultados };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "resultados.json";
-            a.click();
+        // Renderizar partidos en la sección de Administración
+        function cargarPartidosAdmin() {
+            const container = document.getElementById('contenedor-partidos-admin');
+            container.innerHTML = '';
+            partidosFaseGrupos.forEach(p => {
+                container.insertAdjacentHTML('beforeend', `
+                    <div class="flex items-center justify-between p-2 hover:bg-slate-800/20 transition gap-2 text-xs">
+                        <span class="w-1/3 text-right font-medium text-slate-300">${p.local}</span>
+                        <div class="flex items-center gap-1 shrink-0">
+                            <input type="number" min="0" id="admin-p-${p.id}-L" class="w-9 bg-slate-950 border border-slate-700 rounded text-center font-bold text-rose-400 py-0.5 focus:outline-none">
+                            <span class="text-slate-600 font-bold px-0.5">-</span>
+                            <input type="number" min="0" id="admin-p-${p.id}-V" class="w-9 bg-slate-950 border border-slate-700 rounded text-center font-bold text-rose-400 py-0.5 focus:outline-none">
+                        </div>
+                        <span class="w-1/3 text-left font-medium text-slate-300">${p.visitante}</span>
+                    </div>
+                `);
+            });
         }
 
-        // Obtener la configuración general 'resultados.json'
+        // Rellenar la pantalla de admin con los datos actuales del resultados.json del repositorio
         async function precargarResultadosExistentes() {
             try {
-                const res = await fetch(`./resultados.json?t=${Date.now()}`);
-                if (!res.ok) return;
-                const data = await res.json();
-                
-                resultadosRealesGlobales = data.resultados || {};
-                listaParticipantesGlobales = data.participantes || [];
-
-                // Rellenar panel admin
-                document.getElementById('lista-participantes').value = listaParticipantesGlobales.join(', ');
-
-                for (let id in resultadosRealesGlobales) {
-                    if (document.getElementById(`adm-local-${id}`)) {
-                        document.getElementById(`adm-local-${id}`).value = resultadosRealesGlobales[id].L;
-                        document.getElementById(`adm-visitante-${id}`).value = resultadosRealesGlobales[id].V;
+                const response = await fetch('resultados.json?t=' + new Date().getTime());
+                if (!response.ok) return;
+                const data = await response.ok ? await response.json() : null;
+                if(data) {
+                    if(data.participantes) {
+                        document.getElementById('admin-participantes').value = data.participantes.join(',');
+                    }
+                    if(data.resultados) {
+                        for(let id in data.resultados) {
+                            if(document.getElementById(`admin-p-${id}-L`)) {
+                                document.getElementById(`admin-p-${id}-L`).value = data.resultados[id].L;
+                                document.getElementById(`admin-p-${id}-V`).value = data.resultados[id].V;
+                            }
+                        }
                     }
                 }
-            } catch(e) {
-                console.log("Aún no existe archivo resultados.json base.");
-            }
+            } catch(e) {}
         }
 
-        // Algoritmo de Cálculo de Puntos Familiar
-        function calcularPuntosPartido(pred, real) {
-            if (!real) return 0;
-            // 1. Marcador Exacto (5 Puntos)
-            if (pred.L === real.L && pred.V === real.V) return 5;
+        // Descargar el archivo maestro resultados.json desde el panel de Administración
+        function guardarYDescargarResultadosReales() {
+            const listaInput = document.getElementById('admin-participantes').value.trim();
+            const participantesArr = listaInput ? listaInput.split(',').map(p => p.trim()) : [];
             
-            const signoPred = pred.L > pred.V ? 1 : pred.L < pred.V ? -1 : 0;
-            const signoReal = real.L > real.V ? 1 : real.L < real.V ? -1 : 0;
-            
-            // 2. Acertó Ganador o Empate básico
-            if (signoPred === signoReal) {
-                // Caso especial: misma diferencia de goles (3 Puntos)
-                if ((pred.L - pred.V) === (real.L - real.V)) return 3;
-                return 2; // Acertó tendencia pero no diferencia (2 Puntos)
-            }
-            return 0; // Fallo total
-        }
-
-        // Renderizar Tablas de Posiciones Reales del Mundial por Grupo
-        function renderizarGruposReales() {
-            const contenedor = document.getElementById('contenedor-grupos');
-            contenedor.innerHTML = '';
-
-            let gruposData = {};
-            partidos.forEach(p => {
-                if (!gruposData[p.grupo]) {
-                    gruposData[p.grupo] = {};
-                }
-                if (!gruposData[p.grupo][p.local]) gruposData[p.grupo][p.local] = { pts: 0, gf: 0, gc: 0 };
-                if (!gruposData[p.grupo][p.visitante]) gruposData[p.grupo][p.visitante] = { pts: 0, gf: 0, gc: 0 };
-
-                const r = resultadosRealesGlobales[p.id];
-                if (r) {
-                    gruposData[p.grupo][p.local].gf += r.L;
-                    gruposData[p.grupo][p.local].gc += r.V;
-                    gruposData[p.grupo][p.visitante].gf += r.V;
-                    gruposData[p.grupo][p.visitante].gc += r.L;
-
-                    if (r.L > r.V) gruposData[p.grupo][p.local].pts += 3;
-                    else if (r.L < r.V) gruposData[p.grupo][p.visitante].pts += 3;
-                    else {
-                        gruposData[p.grupo][p.local].pts += 1;
-                        gruposData[p.grupo][p.visitante].pts += 1;
-                    }
+            let resultadosReales = {};
+            partidosFaseGrupos.forEach(p => {
+                const gL = document.getElementById(`admin-p-${p.id}-L`).value;
+                const gV = document.getElementById(`admin-p-${p.id}-V`).value;
+                if(gL !== "" && gV !== "") {
+                    resultadosReales[p.id] = { L: parseInt(gL), V: parseInt(gV) };
                 }
             });
 
-            for (let g in gruposData) {
-                let filasHtml = '';
-                let equiposOrdenados = Object.keys(gruposData[g]).sort((a,b) => {
-                    if(gruposData[g][b].pts !== gruposData[g][a].pts) return gruposData[g][b].pts - gruposData[g][a].pts;
-                    return (gruposData[g][b].gf - gruposData[g][b].gc) - (gruposData[g][a].gf - gruposData[g][a].gc);
-                });
-
-                equiposOrdenados.forEach((eq, idx) => {
-                    const data = gruposData[g][eq];
-                    filasHtml += `
-                        <tr class="border-b border-slate-700/40 text-xs md:text-sm">
-                            <td class="p-2 font-bold text-slate-400 text-center">${idx+1}</td>
-                            <td class="p-2 font-semibold text-white truncate max-w-[120px]">${eq}</td>
-                            <td class="p-2 text-center font-bold text-emerald-400">${data.pts}</td>
-                            <td class="p-2 text-center text-slate-400">${data.gf}:${data.gc}</td>
-                        </tr>
-                    `;
-                });
-
-                let htmlGrupo = `
-                    <div class="bg-slate-900/50 rounded-xl border border-slate-700 p-3 shadow-md">
-                        <div class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider mb-2">Grupo ${g}</div>
-                        <table class="w-full text-left">
-                            <thead>
-                                <tr class="text-[10px] uppercase text-slate-500 font-extrabold border-b border-slate-700 pb-1">
-                                    <th class="p-2 text-center w-8">#</th>
-                                    <th class="p-2">Equipo</th>
-                                    <th class="p-2 text-center w-10">Pts</th>
-                                    <th class="p-2 text-center w-12">Goles</th>
-                                </tr>
-                            </thead>
-                            <tbody>${filasHtml}</tbody>
-                        </table>
-                    </div>
-                `;
-                contenedor.insertAdjacentHTML('beforeend', htmlGrupo);
-            }
+            const masterJson = { participantes: participantesArr, resultados: resultadosReales };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(masterJson, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", "resultados.json");
+            dlAnchorElem.click();
         }
 
-        // LÓGICA PRINCIPAL: Procesar jugadas y armar el Ranking Familiar en Vivo
-        async function calcularYMostrarRanking() {
+        // FUNCIÓN CRÍTICA CORREGIDA: Ejecuta el cálculo sin arrastrar datos basura
+        async function ejecutarCalculoRankingYGrupos() {
             const tabla = document.getElementById('tabla-ranking');
-            tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando puntajes en vivo...</td></tr>`;
+            tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando estadísticas...</td></tr>`;
             
+            // 1. REINICIAR LAS TABLAS DE LOS GRUPOS MUNDIALES PARA LIMPIAR DATOS VIEJOS/FANTASMA
+            for (let eq in equiposMundial) {
+                equiposMundial[eq] = { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0, grupo: equiposMundial[eq].grupo };
+            }
+
             try {
-                await precargarResultadosExistentes();
+                const resMaster = await fetch('resultados.json?t=' + new Date().getTime());
+                if(!resMaster.ok) throw new Error("Falta resultados.json");
+                const master = await resMaster.json();
+                
+                const resultadosReales = master.resultados || {};
+                const participantes = master.participantes || [];
+
+                // 2. PROCESAR TABLAS DE GRUPOS USANDO EXCLUSIVAMENTE LOS RESULTADOS REALES CONFIRMADOS
+                partidosFaseGrupos.forEach(partido => {
+                    const res = resultadosReales[partido.id];
+                    
+                    // FILTRO DE SEGURIDAD: Si el partido no se ha jugado o no se encuentra en el JSON, pasamos de largo
+                    if (!res || res.L === undefined || res.V === undefined || res.L === null || res.V === null || res.L === "" || res.V === "") {
+                        return; 
+                    }
+
+                    const golesL = parseInt(res.L);
+                    const golesV = parseInt(res.V);
+
+                    // Acumular estadísticas matemáticas básicas
+                    equiposMundial[partido.local].pj++;
+                    equiposMundial[partido.visitante].pj++;
+                    equiposMundial[partido.local].gf += golesL;
+                    equiposMundial[partido.local].gc += golesV;
+                    equiposMundial[partido.visitante].gf += golesV;
+                    equiposMundial[partido.visitante].gc += golesL;
+
+                    if (golesL > golesV) {
+                        equiposMundial[partido.local].pg++;
+                        equiposMundial[partido.local].pts += 3;
+                        equiposMundial[partido.visitante].pp++;
+                    } else if (golesL < golesV) {
+                        equiposMundial[partido.visitante].pg++;
+                        equiposMundial[partido.visitante].pts += 3;
+                        equiposMundial[partido.local].pp++;
+                    } else {
+                        equiposMundial[partido.local].pe++;
+                        equiposMundial[partido.local].pts += 1;
+                        equiposMundial[partido.visitante].pe++;
+                        equiposMundial[partido.visitante].pts += 1;
+                    }
+                });
+
+                // Dibujar de forma limpia los bloques HTML de los grupos
+                renderizarTablasVisualesGrupos();
+
+                // 3. CALCULAR RANKING DE PUNTOS DE LA FAMILIA
                 let ranking = [];
-
-                for (let part of listaParticipantesGlobales) {
-                    if (!part) continue;
+                for (const archivo de participantes) {
                     try {
-                        let nombreArchivo = part.endsWith('.json') ? part : `${part}.json`;
-                        const res = await fetch(`./jugadas/${nombreArchivo}?t=${Date.now()}`);
-                        if (!res.ok) continue;
+                        const resUser = await fetch(`jugadas/${archivo}?t=` + new Date().getTime());
+                        if(!resUser.ok) continue;
+                        const userJson = await resUser.json();
                         
-                        const pronosticosUser = await res.json();
-                        let puntosTotales = 0;
+                        let puntosUsuario = 0;
+                        const pronosticos = userJson.pronosticos || {};
 
-                        for (let id in resultadosRealesGlobales) {
-                            if (pronosticosUser.pronosticos && pronosticosUser.pronosticos[id]) {
-                                puntosTotales += calcularPuntosPartido(pronosticosUser.pronosticos[id], resultadosRealesGlobales[id]);
+                        for (let pId in resultadosReales) {
+                            const real = resultadosReales[pId];
+                            const prono = pronosticos[pId];
+
+                            if(!real || !prono || real.L === undefined || prono.L === undefined) continue;
+
+                            const rL = parseInt(real.L); const rV = parseInt(real.V);
+                            const pL = parseInt(prono.L); const pV = parseInt(prono.V);
+
+                            if (rL === pL && rV === pV) {
+                                puntosUsuario += 5; // Acierto Marcador Exacto
+                            } else if ((rL > rV && pL > pV) || (rL < rV && pL < pV) || (rL === rV && pL === pV)) {
+                                puntosUsuario += 3; // Ganador o Empate acertado sin marcador exacto
                             }
                         }
-
-                        // USAMOS EL NOMBRE DIRECTAMENTE DEL INTERIOR DEL JSON DE JUGADA
-                        ranking.push({
-                            usuario: pronosticosUser.usuario || part.replace('.json', ''),
-                            puntos: puntosTotales
-                        });
-                    } catch (e) {
-                        console.error("Error cargando jugada de:", part, e);
+                        ranking.push({ usuario: userJson.usuario || archivo, puntos: puntosUsuario });
+                    } catch(err) {
+                        console.error("Error leyendo archivo familiar:", archivo, err);
                     }
                 }
 
-                // Ordenar de Mayor a Menor Puntaje
+                // Ordenar participantes de mayor a menor puntuación
                 ranking.sort((a, b) => b.puntos - a.puntos);
-                tabla.innerHTML = '';
                 
+                tabla.innerHTML = '';
                 if (ranking.length === 0) {
-                    tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados todavía o falta configurar 'resultados.json'.</td></tr>`;
+                    tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados todavía o están vacíos.</td></tr>`;
                     return;
                 }
                 
                 ranking.forEach((player, index) => {
                     let medalla = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}`;
                     tabla.insertAdjacentHTML('beforeend', `
-                        <tr class="hover:bg-slate-800/30 transition">
-                            <td class="p-4 text-center font-bold text-base">${medalla}</td>
-                            <td class="p-4 text-white font-bold">${player.usuario}</td>
-                            <td class="p-4 text-center text-emerald-400 font-extrabold text-base">${player.puntos} pts</td>
+                        <tr class="hover:bg-slate-800/30 transition text-xs md:text-sm">
+                            <td class="p-3 text-center font-bold">${medalla}</td>
+                            <td class="p-3 text-white font-bold">${player.usuario}</td>
+                            <td class="p-3 text-center text-emerald-400 font-extrabold">${player.puntos} pts</td>
                         </tr>
                     `);
                 });
+
             } catch (error) {
-                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar el archivo 'resultados.json' en tu GitHub.</td></tr>`;
+                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400 text-xs"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar el archivo 'resultados.json' en tu GitHub.</td></tr>`;
             }
         }
 
-        // Inicio automático de la web
+        // Renderizar las cajitas estéticas de cada grupo mundialista
+        function renderizarTablasVisualesGrupos() {
+            const container = document.getElementById('contenedor-tablas-grupos');
+            container.innerHTML = '';
+
+            const letrasGrupos = ["A", "B", "C", "D", "E", "F", "G", "H"];
+            
+            letrasGrupos.forEach(letra => {
+                // Filtrar equipos que pertenecen a este grupo específico
+                let equiposGrupo = [];
+                for(let eq in equiposMundial) {
+                    if(equiposMundial[eq].grupo === letra) {
+                        equiposGrupo.push({ nombre: eq, ...equiposMundial[eq] });
+                    }
+                }
+
+                // Criterio de ordenación: Puntos -> Diferencia Goles -> Goles a Favor
+                equiposGrupo.sort((a, b) => {
+                    if (b.pts !== a.pts) return b.pts - a.pts;
+                    let difA = a.gf - a.gc;
+                    let difB = b.gf - b.gc;
+                    if (difB !== difA) return difB - difA;
+                    return b.gf - a.gf;
+                });
+
+                let filasHtml = '';
+                equiposGrupo.forEach((eq, idx) => {
+                    let decoracionFila = idx < 2 ? "bg-emerald-500/5 text-slate-200" : "text-slate-400";
+                    filasHtml += `
+                        <tr class="${decoracionFila} text-[11px] border-b border-slate-700/30">
+                            <td class="p-2 text-center font-bold">${idx + 1}</td>
+                            <td class="p-2 font-bold text-slate-100 truncate max-w-[90px]">${eq.nombre}</td>
+                            <td class="p-2 text-center">${eq.pj}</td>
+                            <td class="p-2 text-center font-bold text-slate-300">${eq.pts}</td>
+                        </tr>
+                    `;
+                });
+
+                container.insertAdjacentHTML('beforeend', `
+                    <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl overflow-hidden shadow-md">
+                        <div class="bg-slate-700/40 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-xs font-black text-emerald-400 tracking-wider">GRUPO ${letra}</span>
+                            <span class="text-[9px] text-slate-500 font-bold">PJ PTS</span>
+                        </div>
+                        <table class="w-full text-left border-collapse">
+                            <tbody>
+                                ${filasHtml}
+                            </tbody>
+                        </table>
+                    </div>
+                `);
+            });
+        }
+
+        // Inicio automático al cargar la pestaña
         window.onload = async function() {
             cargarPartidos();
             await precargarResultadosExistentes();
