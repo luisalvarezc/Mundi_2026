@@ -1,6 +1,6 @@
 {
   "participantes": [
-    "quiniela_luisprueba1"
+    "quiniela_luisprueba.json"
   ],
   "resultados": {
     "1": {
@@ -13,19 +13,19 @@
     },
     "3": {
       "L": 1,
-      "V": 1
+      "V": 2
     },
     "4": {
-      "L": 1,
-      "V": 1
+      "L": 2,
+      "V": 2
     },
     "5": {
       "L": 1,
       "V": 2
     },
     "6": {
-      "L": 2,
-      "V": 1
+      "L": 4,
+      "V": 2
     }
   }
 }
