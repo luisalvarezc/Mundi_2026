@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiniela Mundial 2026 🏆</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css\">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
 
@@ -18,8 +18,11 @@
                 <button onclick="cambiarPestaña('pronosticos')" id="btn-pronosticos" class="bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-emerald-400 shadow-md">
                     <i class="fa-solid fa-clipboard-list mr-1"></i>Mi Pronóstico
                 </button>
+                <button onclick="cambiarPestaña('grupos')" id="btn-grupos" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all shadow-md">
+                    <i class="fa-solid fa-table-list mr-1"></i>Posiciones Grupos
+                </button>
                 <button onclick="cambiarPestaña('ranking')" id="btn-ranking" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all shadow-md">
-                    <i class="fa-solid fa-chart-line mr-1"></i>Ranking y Grupos
+                    <i class="fa-solid fa-chart-line mr-1"></i>Ranking General
                 </button>
                 <button onclick="cambiarPestaña('admin')" id="btn-admin" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all shadow-md">
                     <i class="fa-solid fa-user-gear mr-1"></i>Admin
@@ -34,7 +37,7 @@
             <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 backdrop-blur-sm">
                 <div>
                     <h2 class="text-xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-user text-emerald-400"></i> Tu Identificación</h2>
-                    <p class="text-xs text-slate-400 mt-1">Ingresa tu nombre antes de empezar a llenar tus marcadores.</p>
+                    <p class="text-xs text-slate-400 mt-1">Ingresa tu nombre antes de empezar a llenar tus marcadores de la Fase de Grupos.</p>
                 </div>
                 <input type="text" id="nombre-usuario" placeholder="Ej. Tío Carlos" class="w-full sm:w-64 bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-bold placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-all shadow-inner text-sm">
             </div>
@@ -54,36 +57,30 @@
             </div>
         </div>
 
-        <div id="pestaña-ranking" class="hidden space-y-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="md:col-span-1 bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm h-fit">
-                    <div class="bg-gradient-to-r from-emerald-600 to-emerald-500 p-4 shadow-md">
-                        <h2 class="text-lg font-black text-slate-950 tracking-wide flex items-center justify-between">
-                            <span><i class="fa-solid fa-ranking-star mr-1"></i> RANKING GENERAL</span>
-                            <i class="fa-solid fa-crown opacity-40"></i>
-                        </h2>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-900/50 text-slate-400 text-xxs font-bold uppercase border-b border-slate-700/50">
-                                    <th class="p-3 text-center w-12">Pos</th>
-                                    <th class="p-3">Nombre</th>
-                                    <th class="p-3 text-center w-24">Pts</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-ranking" class="divide-y divide-slate-700/40"></tbody>
-                        </table>
-                    </div>
-                </div>
+        <div id="pestaña-grupos" class="hidden space-y-6">
+            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                <h3 class="text-sm font-bold text-slate-300"><i class="fa-solid fa-circle-info text-emerald-400 mr-1"></i> Posiciones de Grupos Oficiales</h3>
+                <span class="text-xxs text-slate-400">Calculado según resultados reales subidos</span>
+            </div>
+            <div id="contenedor-tablas-grupos" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        </div>
 
-                <div class="md:col-span-2 space-y-6">
-                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                        <h3 class="text-sm font-bold text-slate-300"><i class="fa-solid fa-circle-info text-emerald-400 mr-1"></i> Posiciones de Grupos Oficiales</h3>
-                        <span class="text-xxs text-slate-400">Calculado según resultados reales subidos</span>
-                    </div>
-                    <div id="contenedor-tablas-grupos" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-                </div>
+        <div id="pestaña-ranking" class="hidden bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
+            <div class="bg-gradient-to-r from-emerald-600 to-emerald-500 p-4 shadow-md flex justify-between items-center">
+                <h2 class="text-lg font-black text-slate-950 tracking-wide"><i class="fa-solid fa-ranking-star mr-1"></i> RANKING GENERAL DE LA FAMILIA</h2>
+                <i class="fa-solid fa-crown text-slate-950 text-xl opacity-40"></i>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-900/50 text-slate-400 text-xs font-bold uppercase tracking-wider border-b border-slate-700/50">
+                            <th class="p-4 text-center w-20">Posición</th>
+                            <th class="p-4">Participante</th>
+                            <th class="p-4 text-center w-32">Puntos Totales</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-ranking" class="divide-y divide-slate-700/40"></tbody>
+                </table>
             </div>
         </div>
 
@@ -106,7 +103,7 @@
                 <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
                     <div class="bg-slate-750 p-4 border-b border-slate-700">
                         <h3 class="text-base font-black text-white"><i class="fa-solid fa-square-poll-horizontal text-rose-400 mr-1"></i> Cargar Resultados Reales del Mundial</h3>
-                        <p class="text-xxs text-slate-400 mt-0.5">Escribe los marcadores que van ocurriendo en la vida real.</p>
+                        <p class="text-xxs text-slate-400 mt-0.5">Ecribe los marcadores oficiales que vayan sucediendo en el torneo real.</p>
                     </div>
                     <div id="contenedor-partidos-admin" class="divide-y divide-slate-700/50 p-2 max-h-[50vh] overflow-y-auto"></div>
                 </div>
@@ -121,40 +118,40 @@
     </main>
 
     <script>
-        // CONFIGURACIÓN INTERNA: Equipos y Estructura del Mundial de Fútbol 2026
+        // BASE DE DATOS ESTRUCTURAL DEL MUNDIAL 2026
         const equiposMundial = {
-            "México": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A" },
-            "Sudáfrica": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A" },
-            "Uruguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A" },
-            "Francia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A" },
-            "Argentina": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B" },
-            "Nigeria": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B" },
-            "Corea del Sur": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B" },
-            "Grecia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B" },
-            "Inglaterra": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C" },
-            "EEUU": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C" },
-            "Argelia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C" },
-            "Eslovenia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C" },
-            "Alemania": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D" },
-            "Australia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D" },
-            "Serbia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D" },
-            "Ghana": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D" },
-            "Países Bajos": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E" },
-            "Dinamarca": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E" },
-            "Japón": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E" },
-            "Camerún": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E" },
-            "Italia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F" },
-            "Paraguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F" },
-            "Nueva Zelanda": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F" },
-            "Eslovaquia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F" },
-            "Brasil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G" },
-            "Corea del Norte": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G" },
-            "Costa de Marfil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G" },
-            "Portugal": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G" },
-            "España": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H" },
-            "Suiza": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H" },
-            "Honduras": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H" },
-            "Chile": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H" }
+            "México": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇲🇽" },
+            "Sudáfrica": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇿🇦" },
+            "Uruguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇺🇾" },
+            "Francia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇫🇷" },
+            "Argentina": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇦🇷" },
+            "Nigeria": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇳🇬" },
+            "Corea del Sur": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇰🇷" },
+            "Grecia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇬🇷" },
+            "Inglaterra": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+            "EEUU": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇺🇸" },
+            "Argelia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇩🇿" },
+            "Eslovenia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇸🇮" },
+            "Alemania": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇩🇪" },
+            "Australia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇦🇺" },
+            "Serbia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇷🇸" },
+            "Ghana": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇬🇭" },
+            "Países Bajos": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇳🇱" },
+            "Dinamarca": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇩🇰" },
+            "Japón": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇯🇵" },
+            "Camerún": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇨🇲" },
+            "Italia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇮🇹" },
+            "Paraguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇵🇾" },
+            "Nueva Zelanda": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇳🇿" },
+            "Eslovaquia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇸🇰" },
+            "Brasil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇧🇷" },
+            "Corea del Norte": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇰🇵" },
+            "Costa de Marfil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇨🇮" },
+            "Portugal": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇵🇹" },
+            "España": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇪🇸" },
+            "Suiza": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇨🇭" },
+            "Honduras": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇭🇳" },
+            "Chile": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇨🇱" }
         };
 
         const partidosFaseGrupos = [
@@ -162,7 +159,7 @@
             { id: 2, grupo: "A", local: "Uruguay", visitante: "Francia" },
             { id: 3, grupo: "B", local: "Corea del Sur", visitante: "Grecia" },
             { id: 4, grupo: "B", local: "Argentina", visitante: "Nigeria" },
-            { id: 5, grupo: "C", local: "Inglaterra", visitante: "EEUU" },
+            { id: 5, group: "C", local: "Inglaterra", visitante: "EEUU" },
             { id: 6, grupo: "C", local: "Argelia", visitante: "Eslovenia" },
             { id: 7, grupo: "D", local: "Alemania", visitante: "Australia" },
             { id: 8, grupo: "D", local: "Serbia", visitante: "Ghana" },
@@ -171,7 +168,7 @@
             { id: 11, grupo: "F", local: "Italia", visitante: "Paraguay" },
             { id: 12, grupo: "F", local: "Nueva Zelanda", visitante: "Eslovaquia" },
             { id: 13, grupo: "G", local: "Costa de Marfil", visitante: "Portugal" },
-            { id: 14, group: "G", local: "Brasil", visitante: "Corea del Norte" },
+            { id: 14, grupo: "G", local: "Brasil", visitante: "Corea del Norte" },
             { id: 15, grupo: "H", local: "Honduras", visitante: "Chile" },
             { id: 16, grupo: "H", local: "España", visitante: "Suiza" },
             { id: 17, grupo: "A", local: "Sudáfrica", visitante: "Uruguay" },
@@ -198,7 +195,7 @@
             { id: 38, grupo: "C", local: "EEUU", visitante: "Argelia" },
             { id: 39, grupo: "D", local: "Ghana", visitante: "Alemania" },
             { id: 40, grupo: "D", local: "Australia", visitante: "Serbia" },
-            { id: 41, grupo: "E", local: "Slovakia", visitante: "Italia" },
+            { id: 41, grupo: "E", local: "Eslovaquia", visitante: "Italia" },
             { id: 42, grupo: "E", local: "Paraguay", visitante: "Nueva Zelanda" },
             { id: 43, grupo: "F", local: "Dinamarca", visitante: "Japón" },
             { id: 44, grupo: "F", local: "Camerún", visitante: "Países Bajos" },
@@ -208,33 +205,38 @@
             { id: 48, grupo: "H", local: "Suiza", visitante: "Honduras" }
         ];
 
-        // Cambiar entre pestañas de navegación
+        // CONTROLADOR DE PESTAÑAS
         function cambiarPestaña(idPestaña) {
-            ['pronosticos', 'ranking', 'admin'].forEach(p => {
+            ['pronosticos', 'grupos', 'ranking', 'admin'].forEach(p => {
                 document.getElementById(`pestaña-${p}`).classList.add('hidden');
                 document.getElementById(`btn-${p}`).className = "bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all shadow-md";
             });
             document.getElementById(`pestaña-${idPestaña}`).classList.remove('hidden');
             
-            if (idPestaña === 'pronosticos') {
-                document.getElementById(`btn-${idPestaña}`).className = "bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-emerald-400 shadow-md";
-            } else if (idPestaña === 'ranking') {
-                document.getElementById(`btn-${idPestaña}`).className = "bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-emerald-400 shadow-md";
-                ejecutarCalculoRankingYGrupos();
-            } else if (idPestaña === 'admin') {
+            if (idPestaña === 'admin') {
                 document.getElementById(`btn-${idPestaña}`).className = "bg-rose-500 text-white font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-rose-400 shadow-md";
+            } else {
+                document.getElementById(`btn-${idPestaña}`).className = "bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition-all hover:bg-emerald-400 shadow-md";
+            }
+
+            if (idPestaña === 'grupos' || idPestaña === 'ranking') {
+                ejecutarCalculoRankingYGrupos();
             }
         }
 
-        // Renderizar partidos en la pestaña de Pronósticos del usuario
+        // RENDERIZAR PARTIDOS (VISTA PARTICIPANTE)
         function cargarPartidos() {
             const container = document.getElementById('contenedor-partidos');
             container.innerHTML = '';
             partidosFaseGrupos.forEach(p => {
+                const bL = equiposMundial[p.local]?.bandera || "🏳️";
+                const bV = equiposMundial[p.visitante]?.bandera || "🏳️";
+                
                 container.insertAdjacentHTML('beforeend', `
                     <div class="flex items-center justify-between p-3 hover:bg-slate-800/20 transition gap-2">
                         <div class="flex items-center gap-2 w-1/3 justify-end text-right">
                             <span class="text-xs md:text-sm font-semibold text-slate-200">${p.local}</span>
+                            <span class="text-base md:text-lg">${bL}</span>
                         </div>
                         <div class="flex items-center justify-center gap-1.5 bg-slate-950/40 p-1.5 rounded-xl border border-slate-700/40 shrink-0">
                             <input type="number" min="0" id="p-${p.id}-L" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center font-black text-sm text-emerald-400 py-1 focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:margin-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:margin-0 [&::-webkit-inner-spin-button]:appearance-none">
@@ -242,15 +244,16 @@
                             <input type="number" min="0" id="p-${p.id}-V" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center font-black text-sm text-emerald-400 py-1 focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:margin-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:margin-0 [&::-webkit-inner-spin-button]:appearance-none">
                         </div>
                         <div class="flex items-center gap-2 w-1/3 justify-start text-left">
+                            <span class="text-base md:text-lg">${bV}</span>
                             <span class="text-xs md:text-sm font-semibold text-slate-200">${p.visitante}</span>
-                            <span class="bg-slate-800 text-slate-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-slate-700">GRUP ${p.grupo}</span>
+                            <span class="bg-slate-800 text-slate-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-slate-700">GRP ${p.grupo}</span>
                         </div>
                     </div>
                 `);
             });
         }
 
-        // Descargar el pronóstico personalizado del usuario en formato JSON
+        // DESCARGAR JUGADA DEL PARTICIPANTE
         function guardarYDescargarPronostico() {
             const usuario = document.getElementById('nombre-usuario').value.trim();
             if(!usuario) {
@@ -277,7 +280,7 @@
             dlAnchorElem.click();
         }
 
-        // Autenticar la pestaña de administrador
+        // AUTENTICAR PANEL ADMIN
         function autenticarAdmin() {
             if(document.getElementById('pass-admin').value === 'admin123') {
                 document.getElementById('panel-admin-contenido').classList.remove('hidden');
@@ -287,31 +290,34 @@
             }
         }
 
-        // Renderizar partidos en la sección de Administración
+        // RENDERIZAR PARTIDOS EN PANEL ADMIN
         function cargarPartidosAdmin() {
             const container = document.getElementById('contenedor-partidos-admin');
             container.innerHTML = '';
             partidosFaseGrupos.forEach(p => {
+                const bL = equiposMundial[p.local]?.bandera || "🏳️";
+                const bV = equiposMundial[p.visitante]?.bandera || "🏳️";
                 container.insertAdjacentHTML('beforeend', `
                     <div class="flex items-center justify-between p-2 hover:bg-slate-800/20 transition gap-2 text-xs">
-                        <span class="w-1/3 text-right font-medium text-slate-300">${p.local}</span>
+                        <span class="w-1/3 text-right font-medium text-slate-300">${bL} ${p.local}</span>
                         <div class="flex items-center gap-1 shrink-0">
                             <input type="number" min="0" id="admin-p-${p.id}-L" class="w-9 bg-slate-950 border border-slate-700 rounded text-center font-bold text-rose-400 py-0.5 focus:outline-none">
                             <span class="text-slate-600 font-bold px-0.5">-</span>
                             <input type="number" min="0" id="admin-p-${p.id}-V" class="w-9 bg-slate-950 border border-slate-700 rounded text-center font-bold text-rose-400 py-0.5 focus:outline-none">
                         </div>
-                        <span class="w-1/3 text-left font-medium text-slate-300">${p.visitante}</span>
+                        <span class="w-1/3 text-left font-medium text-slate-300">${bV} ${p.visitante}</span>
                     </div>
                 `);
             });
+            precargarResultadosExistentes();
         }
 
-        // Rellenar la pantalla de admin con los datos actuales del resultados.json del repositorio
+        // PRECARGAR CONFIGURACIÓN EXISTENTE EN ADMIN
         async function precargarResultadosExistentes() {
             try {
                 const response = await fetch('resultados.json?t=' + new Date().getTime());
                 if (!response.ok) return;
-                const data = await response.ok ? await response.json() : null;
+                const data = await response.json();
                 if(data) {
                     if(data.participantes) {
                         document.getElementById('admin-participantes').value = data.participantes.join(',');
@@ -328,7 +334,7 @@
             } catch(e) {}
         }
 
-        // Descargar el archivo maestro resultados.json desde el panel de Administración
+        // DESCARGAR MASTER RESULTADOS.JSON
         function guardarYDescargarResultadosReales() {
             const listaInput = document.getElementById('admin-participantes').value.trim();
             const participantesArr = listaInput ? listaInput.split(',').map(p => p.trim()) : [];
@@ -350,14 +356,16 @@
             dlAnchorElem.click();
         }
 
-        // FUNCIÓN CRÍTICA CORREGIDA: Ejecuta el cálculo sin arrastrar datos basura
+        // FUNCIÓN MATEMÁTICA CORREGIDA (SÓLO MODIFICA LA LOGICA DE GRUPOS SIN TOCAR LO VISUAL)
         async function ejecutarCalculoRankingYGrupos() {
             const tabla = document.getElementById('tabla-ranking');
-            tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando estadísticas...</td></tr>`;
+            tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando estadísticas familiares...</td></tr>`;
             
-            // 1. REINICIAR LAS TABLAS DE LOS GRUPOS MUNDIALES PARA LIMPIAR DATOS VIEJOS/FANTASMA
+            // Reiniciar base matemática de equipos para recalcular limpio
             for (let eq in equiposMundial) {
-                equiposMundial[eq] = { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0, grupo: equiposMundial[eq].grupo };
+                equiposMundial[eq].pj = 0; equiposMundial[eq].pg = 0; equiposMundial[eq].pe = 0;
+                equiposMundial[eq].pp = 0; equiposMundial[eq].gf = 0; equiposMundial[eq].gc = 0;
+                equiposMundial[eq].pts = 0;
             }
 
             try {
@@ -368,11 +376,11 @@
                 const resultadosReales = master.resultados || {};
                 const participantes = master.participantes || [];
 
-                // 2. PROCESAR TABLAS DE GRUPOS USANDO EXCLUSIVAMENTE LOS RESULTADOS REALES CONFIRMADOS
+                // PROCESAR SÓLO LOS PARTIDOS QUE SÍ TIENEN GOLES REALES CONFIRMADOS
                 partidosFaseGrupos.forEach(partido => {
                     const res = resultadosReales[partido.id];
                     
-                    // FILTRO DE SEGURIDAD: Si el partido no se ha jugado o no se encuentra en el JSON, pasamos de largo
+                    // FILTRO ESTRICTO: Si el resultado no está en el JSON o viene incompleto, pasamos de largo y no rompe las tablas
                     if (!res || res.L === undefined || res.V === undefined || res.L === null || res.V === null || res.L === "" || res.V === "") {
                         return; 
                     }
@@ -380,7 +388,6 @@
                     const golesL = parseInt(res.L);
                     const golesV = parseInt(res.V);
 
-                    // Acumular estadísticas matemáticas básicas
                     equiposMundial[partido.local].pj++;
                     equiposMundial[partido.visitante].pj++;
                     equiposMundial[partido.local].gf += golesL;
@@ -404,12 +411,12 @@
                     }
                 });
 
-                // Dibujar de forma limpia los bloques HTML de los grupos
+                // Renderizar las tablas estéticas de los grupos mundiales
                 renderizarTablasVisualesGrupos();
 
-                // 3. CALCULAR RANKING DE PUNTOS DE LA FAMILIA
+                // CALCULAR EL RANKING GENERAL DE LA FAMILIA
                 let ranking = [];
-                for (const archivo de participantes) {
+                for (const archivo of participantes) {
                     try {
                         const resUser = await fetch(`jugadas/${archivo}?t=` + new Date().getTime());
                         if(!resUser.ok) continue;
@@ -428,43 +435,40 @@
                             const pL = parseInt(prono.L); const pV = parseInt(prono.V);
 
                             if (rL === pL && rV === pV) {
-                                puntosUsuario += 5; // Acierto Marcador Exacto
+                                puntosUsuario += 5; // Marcador exacto
                             } else if ((rL > rV && pL > pV) || (rL < rV && pL < pV) || (rL === rV && pL === pV)) {
-                                puntosUsuario += 3; // Ganador o Empate acertado sin marcador exacto
+                                puntosUsuario += 3; // Tendencia correcta
                             }
                         }
                         ranking.push({ usuario: userJson.usuario || archivo, puntos: puntosUsuario });
-                    } catch(err) {
-                        console.error("Error leyendo archivo familiar:", archivo, err);
-                    }
+                    } catch(err) {}
                 }
 
-                // Ordenar participantes de mayor a menor puntuación
                 ranking.sort((a, b) => b.puntos - a.puntos);
                 
                 tabla.innerHTML = '';
                 if (ranking.length === 0) {
-                    tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados todavía o están vacíos.</td></tr>`;
+                    tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados todavía o falta configurar 'resultados.json'.</td></tr>`;
                     return;
                 }
                 
                 ranking.forEach((player, index) => {
                     let medalla = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}`;
                     tabla.insertAdjacentHTML('beforeend', `
-                        <tr class="hover:bg-slate-800/30 transition text-xs md:text-sm">
-                            <td class="p-3 text-center font-bold">${medalla}</td>
-                            <td class="p-3 text-white font-bold">${player.usuario}</td>
-                            <td class="p-3 text-center text-emerald-400 font-extrabold">${player.puntos} pts</td>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="p-4 text-center font-bold text-base">${medalla}</td>
+                            <td class="p-4 text-white font-bold">${player.usuario}</td>
+                            <td class="p-4 text-center text-emerald-400 font-extrabold text-base">${player.puntos} pts</td>
                         </tr>
                     `);
                 });
 
             } catch (error) {
-                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400 text-xs"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar el archivo 'resultados.json' en tu GitHub.</td></tr>`;
+                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar el archivo 'resultados.json' en tu GitHub.</td></tr>`;
             }
         }
 
-        // Renderizar las cajitas estéticas de cada grupo mundialista
+        // RENDERIZAR TABLAS VISUALES DE CADA GRUPO MUNDIALISTA
         function renderizarTablasVisualesGrupos() {
             const container = document.getElementById('contenedor-tablas-grupos');
             container.innerHTML = '';
@@ -472,7 +476,6 @@
             const letrasGrupos = ["A", "B", "C", "D", "E", "F", "G", "H"];
             
             letrasGrupos.forEach(letra => {
-                // Filtrar equipos que pertenecen a este grupo específico
                 let equiposGrupo = [];
                 for(let eq in equiposMundial) {
                     if(equiposMundial[eq].grupo === letra) {
@@ -480,7 +483,7 @@
                     }
                 }
 
-                // Criterio de ordenación: Puntos -> Diferencia Goles -> Goles a Favor
+                // Ordenación clásica por puntos -> gol diferencia -> goles a favor
                 equiposGrupo.sort((a, b) => {
                     if (b.pts !== a.pts) return b.pts - a.pts;
                     let difA = a.gf - a.gc;
@@ -493,22 +496,37 @@
                 equiposGrupo.forEach((eq, idx) => {
                     let decoracionFila = idx < 2 ? "bg-emerald-500/5 text-slate-200" : "text-slate-400";
                     filasHtml += `
-                        <tr class="${decoracionFila} text-[11px] border-b border-slate-700/30">
+                        <tr class="${decoracionFila} text-xs border-b border-slate-700/30">
                             <td class="p-2 text-center font-bold">${idx + 1}</td>
-                            <td class="p-2 font-bold text-slate-100 truncate max-w-[90px]">${eq.nombre}</td>
+                            <td class="p-2 font-bold text-slate-100">${eq.bandera} ${eq.nombre}</td>
                             <td class="p-2 text-center">${eq.pj}</td>
-                            <td class="p-2 text-center font-bold text-slate-300">${eq.pts}</td>
+                            <td class="p-2 text-center">${eq.pg}</td>
+                            <td class="p-2 text-center">${eq.pe}</td>
+                            <td class="p-2 text-center">${eq.pp}</td>
+                            <td class="p-2 text-center">${eq.gf}:${eq.gc}</td>
+                            <td class="p-2 text-center font-bold text-emerald-400">${eq.pts}</td>
                         </tr>
                     `;
                 });
 
                 container.insertAdjacentHTML('beforeend', `
-                    <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl overflow-hidden shadow-md">
-                        <div class="bg-slate-700/40 px-3 py-2 border-b border-slate-700 flex justify-between items-center">
-                            <span class="text-xs font-black text-emerald-400 tracking-wider">GRUPO ${letra}</span>
-                            <span class="text-[9px] text-slate-500 font-bold">PJ PTS</span>
+                    <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl overflow-hidden shadow-xl">
+                        <div class="bg-slate-700/40 px-4 py-2.5 border-b border-slate-700 flex justify-between items-center">
+                            <span class="text-sm font-black text-emerald-400 tracking-wider">GRUPO ${letra}</span>
                         </div>
                         <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900/20 text-slate-400 text-[10px] font-bold uppercase border-b border-slate-700/30">
+                                    <th class="p-2 text-center w-8">#</th>
+                                    <th class="p-2">Equipo</th>
+                                    <th class="p-2 text-center w-8">PJ</th>
+                                    <th class="p-2 text-center w-8">G</th>
+                                    <th class="p-2 text-center w-8">E</th>
+                                    <th class="p-2 text-center w-8">P</th>
+                                    <th class="p-2 text-center w-12">Goles</th>
+                                    <th class="p-2 text-center w-10">Pts</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 ${filasHtml}
                             </tbody>
@@ -518,10 +536,9 @@
             });
         }
 
-        // Inicio automático al cargar la pestaña
+        // INICIALIZADOR AUTOMÁTICO DE LA WEB
         window.onload = async function() {
             cargarPartidos();
-            await precargarResultadosExistentes();
         };
     </script>
 </body>
