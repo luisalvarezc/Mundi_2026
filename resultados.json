@@ -1,4 +1,31 @@
 {
-  "participantes": [],
-  "resultados": {}
+  "participantes": [
+    "quiniela_luisprueba1"
+  ],
+  "resultados": {
+    "1": {
+      "L": 1,
+      "V": 1
+    },
+    "2": {
+      "L": 1,
+      "V": 2
+    },
+    "3": {
+      "L": 1,
+      "V": 1
+    },
+    "4": {
+      "L": 1,
+      "V": 1
+    },
+    "5": {
+      "L": 1,
+      "V": 2
+    },
+    "6": {
+      "L": 2,
+      "V": 1
+    }
+  }
 }
