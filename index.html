@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiniela Mundial 2026 🏆</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
+
+    <nav class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <h1 class="text-lg md:text-xl font-extrabold tracking-wider text-emerald-400 flex items-center">
+                <i class="fa-solid fa-trophy mr-2 animate-pulse"></i>QUINIELA 2026
+            </h1>
+            <div class="flex flex-wrap gap-1 justify-center">
+                <button onclick="cambiarPestaña('pronosticos')" id="btn-pronosticos" class="bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i> Pronósticos
+                </button>
+                <button onclick="cambiarPestaña('grupos')" id="btn-grupos" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
+                    <i class="fa-solid fa-cubes mr-1"></i> Grupos
+                </button>
+                <button onclick="cambiarPestaña('tablas')" id="btn-tablas" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
+                    <i class="fa-solid fa-table-list mr-1"></i> Tablas
+                </button>
+                <button onclick="cambiarPestaña('posiciones')" id="btn-posiciones" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
+                    <i class="fa-solid fa-ranking-star mr-1"></i> Ranking
+                </button>
+                <button onclick="accederComoAdmin()" id="btn-admin" class="bg-slate-800 border border-slate-600 hover:bg-slate-700 text-amber-400 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
+                    <i class="fa-solid fa-lock mr-1"></i> Admin
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-6 space-y-6">
+        
+        <div id="seccion-pronosticos" class="space-y-6">
+            <div class="bg-gradient-to-r from-slate-800 to-slate-800/50 p-6 rounded-2xl border border-slate-700 shadow-xl">
+                <h2 class="text-2xl font-bold mb-1 text-white">¡Listos para el Mundial! ⚽</h2>
+                <p class="text-slate-400 text-sm mb-4">Coloca tus pronósticos para los partidos de la primera fase. Al terminar, descarga tu jugada y envíasela al administrador.</p>
+                
+                <div class="mt-4 max-w-sm">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">Tu Nombre / Apodo Familiar:</label>
+                    <input type="text" id="nombreUsuario" placeholder="Ej: Tío Carlos, Prima Elena..." 
+                           class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 font-bold text-slate-200 focus:outline-none focus:border-emerald-400 transition">
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-300 flex items-center mb-4">
+                    <span class="w-2 h-5 bg-emerald-400 rounded-full mr-2"></span> Calendario de Partidos
+                </h3>
+                <div id="contenedor-partidos" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+            
+            <div class="text-center pt-6 sticky bottom-4 z-40">
+                <button onclick="guardarPronosticos()" class="w-full md:w-auto bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold px-10 py-4 rounded-xl shadow-2xl shadow-emerald-500/40 transform active:scale-95 transition cursor-pointer text-lg">
+                    <i class="fa-solid fa-cloud-arrow-down mr-2"></i>Descargar y Guardar Mi Jugada
+                </button>
+            </div>
+        </div>
+
+        <div id="seccion-grupos" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-slate-800 to-slate-800/50 p-6 rounded-2xl border border-slate-700 shadow-xl">
+                <h2 class="text-2xl font-bold text-emerald-400 mb-1 flex items-center">
+                    <i class="fa-solid fa-cubes mr-2"></i> Grupos del Mundial 2026
+                </h2>
+                <p class="text-slate-400 text-sm">Distribución oficial de las 48 selecciones clasificadas.</p>
+            </div>
+            <div id="contenedor-grupos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+        </div>
+
+        <div id="seccion-tablas" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-slate-800 to-slate-800/50 p-6 rounded-2xl border border-slate-700 shadow-xl">
+                <h2 class="text-2xl font-bold text-emerald-400 mb-1 flex items-center">
+                    <i class="fa-solid fa-table-list mr-2"></i> Posiciones de la Fase de Grupos
+                </h2>
+                <p class="text-slate-400 text-sm">Estadísticas reales basadas en los resultados oficiales cargados por el administrador.</p>
+            </div>
+            <div id="contenedor-tablas-reales" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </div>
+
+        <div id="seccion-posiciones" class="hidden space-y-6">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-2xl font-bold text-emerald-400 mb-2 flex items-center">
+                    <i class="fa-solid fa-star mr-2 text-yellow-400"></i> Tabla de Posiciones Familiar
+                </h2>
+                <p class="text-slate-400 text-xs mb-4">Los puntajes se actualizan en vivo según los aciertos de cada participante.</p>
+                
+                <div class="overflow-x-auto rounded-xl border border-slate-700 bg-slate-950">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800/50 text-slate-400 text-xs font-bold uppercase tracking-wider border-b border-slate-700">
+                                <th class="p-4 text-center w-12">Pos</th>
+                                <th class="p-4">Familiar</th>
+                                <th class="p-4 text-center">Pts Totales</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-leaderboard" class="divide-y divide-slate-800 text-sm font-semibold">
+                            <tr>
+                                <td colspan="3" class="p-8 text-center text-slate-500 italic">Cargando datos familiares...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="seccion-admin" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-amber-900/40 to-slate-800 p-6 rounded-2xl border border-amber-500/30 shadow-xl">
+                <h2 class="text-2xl font-bold text-amber-400 mb-1 flex items-center">
+                    <i class="fa-solid fa-toolbox mr-2"></i> Panel de Control Oficial
+                </h2>
+                <p class="text-slate-300 text-sm">Ingresa los marcadores reales de los partidos jugados y gestiona los participantes de tu quiniela.</p>
+            </div>
+
+            <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl space-y-3">
+                <h3 class="text-md font-bold text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-users mr-1"></i> 1. Lista de Participantes (.json)</h3>
+                <p class="text-xs text-slate-400">Escribe exactamente el nombre del archivo de cada familiar que subas a la carpeta <code class="bg-slate-950 px-1 py-0.5 rounded text-amber-300">jugadas/</code> separado por comas.</p>
+                <textarea id="admin-participantes" rows="2" placeholder="ejemplo: juan.json, tio_carlos.json, maria_g.json" 
+                          class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-slate-300 font-mono focus:outline-none focus:border-amber-400"></textarea>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-md font-bold text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-clipboard-check mr-1"></i> 2. Marcadores Oficiales del Mundial</h3>
+                <div id="contenedor-partidos-admin" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+
+            <div class="text-center pt-4 sticky bottom-4 z-40">
+                <button onclick="generarJsonResultados()" class="w-full md:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-10 py-4 rounded-xl shadow-2xl shadow-amber-500/40 transform active:scale-95 transition cursor-pointer text-lg">
+                    <i class="fa-solid fa-file-export mr-2"></i>Generar y Descargar resultados.json
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const CLAVE_ADMIN = "admin123"; // 🔑 Puedes cambiar tu contraseña aquí
+
+        const banderas = {
+            "México": "🇲🇽", "Sudáfrica": "🇿🇦", "República de Corea": "🇰🇷", "República Checa": "🇨🇿",
+            "Canadá": "🇨🇦", "Bosnia y Herzegovina": "🇧🇦", "Estados Unidos": "🇺🇸", "Paraguay": "🇵🇾",
+            "Catar": "🇶🇦", "Suiza": "🇨🇭", "Brasil": "🇧🇷", "Marruecos": "🇲🇦", "Haití": "🇭🇹",
+            "Escocia": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "Australia": "🇦🇺", "Turquía": "🇹🇷", "Alemania": "🇩🇪", "Curazao": "🇨🇼",
+            "Países Bajos": "🇳🇱", "Japón": "🇯🇵", "Costa de Marfil": "🇨🇮", "Ecuador": "🇪🇨",
+            "Suecia": "🇸🇪", "Túnez": "🇹🇳", "España": "🇪🇸", "Cabo Verde": "🇨🇻", "Bélgica": "🇧🇪",
+            "Egipto": "🇪🇬", "Arabia Saudí": "🇸🇦", "Uruguay": "🇺🇾", "RI de Irán": "🇮🇷", "Irán": "🇮🇷",
+            "Nueva Zelanda": "🇳🇿", "Francia": "🇫🇷", "Senegal": "🇸🇳", "Irak": "🇮🇶", "Noruega": "🇳🇴",
+            "Argentina": "🇦🇷", "Argelia": "🇩🇿", "Austria": "🇦🇹", "Jordania": "🇯🇴", "Portugal": "🇵🇹",
+            "RD Congo": "🇨🇩", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Croacia": "🇭🇷", "Ghana": "🇬🇭", "Panamá": "🇵🇦",
+            "Uzbekistán": "🇺🇿", "Colombia": "🇨🇴"
+        };
+
+        // Base de datos fija de los 72 partidos del mundial
+        const partidosData = [
+            { id: 1, fecha: "Jueves, 11 de junio 2026", hora: "15:00", local: "México", visitante: "Sudáfrica", grupo: "Grupo A", estadio: "Estadio Ciudad de México" },
+            { id: 2, fecha: "Jueves, 11 de junio 2026", hora: "22:00", local: "República de Corea", visitante: "República Checa", grupo: "Grupo A", estadio: "Estadio Guadalajara" },
+            { id: 3, fecha: "Viernes, 12 de junio 2026", hora: "15:00", local: "Canadá", visitante: "Bosnia y Herzegovina", grupo: "Grupo B", estadio: "Estadio Toronto" },
+            { id: 4, fecha: "Viernes, 12 de junio 2026", hora: "21:00", local: "Estados Unidos", visitante: "Paraguay", grupo: "Grupo D", estadio: "Estadio Los Ángeles" },
+            { id: 5, fecha: "Sábado, 13 de junio 2026", hora: "15:00", local: "Catar", visitante: "Suiza", grupo: "Grupo B", estadio: "Estadio Bahía de San Francisco" },
+            { id: 6, fecha: "Sábado, 13 de junio 2026", hora: "18:00", local: "Brasil", visitante: "Marruecos", grupo: "Grupo C", estadio: "Estadio Nueva York Nueva Jersey" },
+            { id: 7, fecha: "Sábado, 13 de junio 2026", hora: "21:00", local: "Haití", visitante: "Escocia", grupo: "Grupo C", estadio: "Estadio Boston" },
+            { id: 8, fecha: "Sábado, 13 de junio 2026", hora: "00:00", local: "Australia", visitante: "Turquía", grupo: "Grupo D", estadio: "Estadio BC Place Vancouver" },
+            { id: 9, fecha: "Domingo, 14 de junio 2026", hora: "13:00", local: "Alemania", visitante: "Curazao", grupo: "Grupo E", estadio: "Estadio Houston" },
+            { id: 10, fecha: "Domingo, 14 de junio 2026", hora: "16:00", local: "Países Bajos", visitante: "Japón", grupo: "Grupo F", estadio: "Estadio Dallas" },
+            { id: 11, fecha: "Domingo, 14 de junio 2026", hora: "19:00", local: "Costa de Marfil", visitante: "Ecuador", grupo: "Grupo E", estadio: "Estadio Filadelfia" },
+            { id: 12, fecha: "Domingo, 14 de junio 2026", hora: "22:00", local: "Suecia", visitante: "Túnez", grupo: "Grupo F", estadio: "Estadio Monterrey" },
+            { id: 13, fecha: "Lunes, 15 de junio 2026", hora: "12:00", local: "España", visitante: "Cabo Verde", grupo: "Grupo H", estadio: "Estadio Atlanta" },
+            { id: 14, fecha: "Lunes, 15 de junio 2026", hora: "15:00", local: "Bélgica", visitante: "Egipto", grupo: "Grupo G", estadio: "Estadio Seattle" },
+            { id: 15, fecha: "Lunes, 15 de junio 2026", hora: "18:00", local: "Arabia Saudí", visitante: "Uruguay", grupo: "Grupo H", estadio: "Estadio Miami" },
+            { id: 16, fecha: "Lunes, 15 de junio 2026", hora: "21:00", local: "RI de Irán", visitante: "Nueva Zelanda", grupo: "Grupo G", estadio: "Estadio Los Ángeles" },
+            { id: 17, fecha: "Martes, 16 de junio 2026", hora: "15:00", local: "Francia", visitante: "Senegal", grupo: "Grupo I", estadio: "Estadio Nueva York Nueva Jersey" },
+            { id: 18, fecha: "Martes, 16 de junio 2026", hora: "18:00", local: "Irak", visitante: "Noruega", grupo: "Grupo I", estadio: "Estadio Boston" },
+            { id: 19, fecha: "Martes, 16 de junio 2026", hora: "21:00", local: "Argentina", visitante: "Argelia", group: "Grupo J", estadio: "Estadio Kansas City" },
+            { id: 20, fecha: "Martes, 16 de junio 2026", hora: "00:00", local: "Austria", visitante: "Jordania", grupo: "Grupo J", estadio: "Estadio Bahía de San Francisco" },
+            { id: 21, fecha: "Miércoles, 17 de junio 2026", hora: "13:00", local: "Portugal", visitante: "RD Congo", grupo: "Grupo K", estadio: "Estadio Houston" },
+            { id: 22, fecha: "Miércoles, 17 de junio 2026", hora: "16:00", local: "Inglaterra", visitante: "Croacia", grupo: "Grupo L", estadio: "Estadio Dallas" },
+            { id: 23, fecha: "Miércoles, 17 de junio 2026", hora: "19:00", local: "Ghana", visitante: "Panamá", grupo: "Grupo L", estadio: "Estadio Toronto" },
+            { id: 24, fecha: "Miércoles, 17 de junio 2026", hora: "22:00", local: "Uzbekistán", visitante: "Colombia", grupo: "Grupo K", estadio: "Estadio Ciudad de México" },
+            { id: 25, fecha: "Jueves, 18 de junio 2026", hora: "12:00", local: "República Checa", visitante: "Sudáfrica", grupo: "Grupo A", estadio: "Estadio Atlanta" },
+            { id: 26, fecha: "Jueves, 18 de junio 2026", hora: "15:00", local: "Suiza", visitante: "Bosnia y Herzegovina", grupo: "Grupo B", estadio: "Estadio Los Ángeles" },
+            { id: 27, fecha: "Jueves, 18 de junio 2026", hora: "18:00", local: "Canadá", visitante: "Catar", grupo: "Grupo B", estadio: "Estadio BC Place Vancouver" },
+            { id: 28, fecha: "Jueves, 18 de junio 2026", hora: "21:00", local: "México", visitante: "República de Corea", grupo: "Grupo A", estadio: "Estadio Guadalajara" },
+            { id: 29, fecha: "Viernes, 19 de junio 2026", hora: "15:00", local: "Estados Unidos", visitante: "Australia", grupo: "Grupo D", estadio: "Estadio Seattle" },
+            { id: 30, fecha: "Viernes, 19 de junio 2026", hora: "18:00", local: "Escocia", visitante: "Marruecos", grupo: "Grupo C", estadio: "Estadio Boston" },
+            { id: 31, fecha: "Viernes, 19 de junio 2026", hora: "21:00", local: "Brasil", visitante: "Haití", grupo: "Grupo C", estadio: "Estadio Filadelfia" },
+            { id: 32, fecha: "Viernes, 19 de junio 2026", hora: "00:00", local: "Turquía", visitante: "Paraguay", grupo: "Grupo D", estadio: "Estadio Bahía de San Francisco" },
+            { id: 33, fecha: "Sábado, 20 de junio 2026", hora: "13:00", local: "Países Bajos", visitante: "Suecia", grupo: "Grupo F", estadio: "Estadio Houston" },
+            { id: 34, fecha: "Sábado, 20 de junio 2026", hora: "16:00", local: "Alemania", visitante: "Costa de Marfil", grupo: "Grupo E", estadio: "Estadio Toronto" },
+            { id: 35, fecha: "Sábado, 20 de junio 2026", hora: "22:00", local: "Ecuador", visitante: "Curazao", grupo: "Grupo E", estadio: "Estadio Kansas City" },
+            { id: 36, fecha: "Sábado, 20 de junio 2026", hora: "00:00", local: "Túnez", visitante: "Japón", grupo: "Grupo F", estadio: "Estadio Monterrey" },
+            { id: 37, fecha: "Domingo, 21 de junio 2026", hora: "12:00", local: "España", visitante: "Arabia Saudí", grupo: "Grupo H", estadio: "Estadio Atlanta" },
+            { id: 38, fecha: "Domingo, 21 de junio 2026", hora: "15:00", local: "Bélgica", visitante: "Irán", grupo: "Grupo G", estadio: "Estadio Los Ángeles" },
+            { id: 39, fecha: "Domingo, 21 de junio 2026", hora: "18:00", local: "Uruguay", visitante: "Cabo Verde", grupo: "Grupo H", estadio: "Estadio Miami" },
+            { id: 40, fecha: "Domingo, 21 de junio 2026", hora: "21:00", local: "Nueva Zelanda", visitante: "Egipto", grupo: "Grupo G", estadio: "Estadio BC Place Vancouver" },
+            { id: 41, fecha: "Lunes, 22 de junio 2026", hora: "13:00", local: "Argentina", visitante: "Austria", grupo: "Grupo J", estadio: "Estadio Dallas" },
+            { id: 42, fecha: "Lunes, 22 de junio 2026", hora: "17:00", local: "Francia", visitante: "Irak", grupo: "Grupo I", estadio: "Estadio Filadelfia" },
+            { id: 43, fecha: "Lunes, 22 de junio 2026", hora: "20:00", local: "Noruega", visitante: "Senegal", grupo: "Grupo I", estadio: "Estadio Nueva York Nueva Jersey" },
+            { id: 44, fecha: "Lunes, 22 de junio 2026", hora: "23:00", local: "Jordania", visitante: "Argelia", grupo: "Grupo J", estadio: "Estadio Bahía de San Francisco" },
+            { id: 45, fecha: "Martes, 23 de junio 2026", hora: "13:00", local: "Portugal", visitante: "Uzbekistán", grupo: "Grupo K", estadio: "Estadio Houston" },
+            { id: 46, fecha: "Martes, 23 de junio 2026", hora: "16:00", local: "Inglaterra", visitante: "Ghana", grupo: "Grupo L", estadio: "Estadio Boston" },
+            { id: 47, fecha: "Martes, 23 de junio 2026", hora: "19:00", local: "Panamá", visitante: "Croacia", grupo: "Grupo L", estadio: "Estadio Toronto" },
+            { id: 48, fecha: "Martes, 23 de junio 2026", hora: "22:00", local: "Colombia", visitante: "RD Congo", grupo: "Grupo K", estadio: "Estadio Guadalajara" },
+            { id: 49, fecha: "Miércoles, 24 de junio 2026", hora: "15:00", local: "Suiza", visitante: "Canadá", grupo: "Grupo B", estadio: "Estadio BC Place Vancouver" },
+            { id: 50, fecha: "Miércoles, 24 de junio 2026", hora: "15:00", local: "Bosnia y Herzegovina", visitante: "Catar", grupo: "Grupo B", estadio: "Estadio Seattle" },
+            { id: 51, fecha: "Miércoles, 24 de junio 2026", hora: "18:00", local: "Escocia", visitante: "Brasil", grupo: "Grupo C", estadio: "Estadio Miami" },
+            { id: 52, fecha: "Miércoles, 24 de junio 2026", hora: "18:00", local: "Marruecos", visitante: "Haití", grupo: "Grupo C", estadio: "Estadio Atlanta" },
+            { id: 53, fecha: "Miércoles, 24 de junio 2026", hora: "21:00", local: "República Checa", visitante: "México", grupo: "Grupo A", estadio: "Estadio Ciudad de México" },
+            { id: 54, fecha: "Miércoles, 24 de junio 2026", hora: "21:00", local: "Sudáfrica", visitante: "República de Corea", grupo: "Grupo A", estadio: "Estadio Monterrey" },
+            { id: 55, fecha: "Jueves, 25 de junio 2026", hora: "16:00", local: "Curazao", visitante: "Costa de Marfil", grupo: "Grupo E", estadio: "Estadio Filadelfia" },
+            { id: 56, fecha: "Jueves, 25 de junio 2026", hora: "16:00", local: "Ecuador", visitante: "Alemania", grupo: "Grupo E", estadio: "Estadio Nueva York Nueva Jersey" },
+            { id: 57, fecha: "Jueves, 25 de junio 2026", hora: "19:00", local: "Japón", visitante: "Suecia", grupo: "Grupo F", estadio: "Estadio Dallas" },
+            { id: 58, fecha: "Jueves, 25 de junio 2026", hora: "19:00", local: "Túnez", visitante: "Países Bajos", grupo: "Grupo F", estadio: "Estadio Kansas City" },
+            { id: 59, fecha: "Jueves, 25 de junio 2026", hora: "22:00", local: "Turquía", visitante: "Estados Unidos", grupo: "Grupo D", estadio: "Estadio Los Ángeles" },
+            { id: 60, fecha: "Jueves, 25 de junio 2026", hora: "22:00", local: "Paraguay", visitante: "Australia", grupo: "Grupo D", estadio: "Estadio Bahía de San Francisco" },
+            { id: 61, fecha: "Viernes, 26 de junio 2026", hora: "15:00", local: "Noruega", visitante: "Francia", grupo: "Grupo I", estadio: "Estadio Boston" },
+            { id: 62, fecha: "Viernes, 26 de junio 2026", hora: "15:00", local: "Senegal", visitante: "Irak", grupo: "Grupo I", estadio: "Estadio Toronto" },
+            { id: 63, fecha: "Viernes, 26 de junio 2026", hora: "20:00", local: "Cabo Verde", visitante: "Arabia Saudí", grupo: "Grupo H", estadio: "Estadio Houston" },
+            { id: 64, fecha: "Viernes, 26 de junio 2026", hora: "20:00", local: "Uruguay", visitante: "España", grupo: "Grupo H", estadio: "Estadio Guadalajara" },
+            { id: 65, fecha: "Viernes, 26 de junio 2026", hora: "23:00", local: "Egipto", visitante: "Irán", grupo: "Grupo G", estadio: "Estadio Seattle" },
+            { id: 66, fecha: "Viernes, 26 de junio 2026", hora: "23:00", local: "Nueva Zelanda", visitante: "Bélgica", grupo: "Grupo G", estadio: "Estadio BC Place Vancouver" },
+            { id: 67, fecha: "Sábado, 27 de junio 2026", hora: "17:00", local: "Panamá", visitante: "Inglaterra", grupo: "Grupo L", estadio: "Estadio Nueva York Nueva Jersey" },
+            { id: 68, fecha: "Sábado, 27 de junio 2026", hora: "17:00", local: "Croacia", visitante: "Ghana", grupo: "Grupo L", estadio: "Estadio Filadelfia" },
+            { id: 69, fecha: "Sábado, 27 de junio 2026", hora: "19:30", local: "Colombia", visitante: "Portugal", grupo: "Grupo K", estadio: "Estadio Miami" },
+            { id: 70, fecha: "Sábado, 27 de junio 2026", hora: "19:30", local: "RD Congo", visitante: "Uzbekistán", grupo: "Grupo K", estadio: "Estadio Atlanta" },
+            { id: 71, fecha: "Sábado, 27 de junio 2026", hora: "22:00", local: "Argelia", visitante: "Austria", grupo: "Grupo J", estadio: "Estadio Kansas City" },
+            { id: 73, fecha: "Sábado, 27 de junio 2026", hora: "22:00", local: "Jordania", visitante: "Argentina", grupo: "Grupo J", estadio: "Estadio Dallas" }
+        ];
+
+        let baseResultadosCargados = {};
+
+        function cambiarPestaña(tipo) {
+            const tabs = ['pronosticos', 'grupos', 'tablas', 'posiciones', 'admin'];
+            tabs.forEach(t => {
+                const sec = document.getElementById(`seccion-${t}`);
+                const btn = document.getElementById(`btn-${t}`);
+                if(sec) sec.classList.add('hidden');
+                if(btn) {
+                    if (t === 'admin') {
+                        btn.className = "bg-slate-800 border border-slate-600 hover:bg-slate-700 text-amber-400 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition";
+                    } else {
+                        btn.className = "bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition";
+                    }
+                }
+            });
+
+            document.getElementById(`seccion-${tipo}`).classList.remove('hidden');
+            const btnActivo = document.getElementById(`btn-${tipo}`);
+            if (tipo === 'admin') {
+                btnActivo.className = "bg-amber-500 text-slate-950 font-extrabold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition";
+            } else {
+                btnActivo.className = "bg-emerald-500 text-slate-950 font-bold px-2 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition";
+            }
+
+            if (tipo === 'grupos') generarSeccionGrupos();
+            if (tipo === 'tablas') generarTablasPosicionesMundial();
+            if (tipo === 'posiciones') cargarLeaderboard();
+            if (tipo === 'admin') generarCalendarioAdmin();
+        }
+
+        function accederComoAdmin() {
+            const pass = prompt("Introduce la contraseña de Administrador:");
+            if (pass === CLAVE_ADMIN) {
+                cambiarPestaña('admin');
+            } else {
+                alert("❌ Contraseña incorrecta.");
+            }
+        }
+
+        function cargarPartidos() {
+            const contenedor = document.getElementById('contenedor-partidos');
+            contenedor.innerHTML = '';
+            partidosData.forEach(p => {
+                const flagL = banderas[p.local] || "🏳️";
+                const flagV = banderas[p.visitante] || "🏳️";
+                contenedor.insertAdjacentHTML('beforeend', `
+                    <div class="match-card bg-slate-800 border border-slate-700/80 rounded-xl p-4 shadow-md flex flex-col justify-between transition hover:border-slate-500" data-id="${p.id}">
+                        <div class="flex justify-between items-center text-xs text-slate-400 font-semibold uppercase tracking-wider mb-3 border-b border-slate-700/40 pb-1">
+                            <span>${p.grupo}</span>
+                            <span class="text-emerald-400 font-mono"><i class="fa-regular fa-clock mr-1"></i>${p.hora}</span>
+                        </div>
+                        <div class="flex items-center justify-between space-x-2 my-2">
+                            <div class="flex items-center space-x-2 w-[42%] text-left">
+                                <span class="text-2xl min-w-[32px] text-center">${flagL}</span>
+                                <span class="font-bold truncate text-sm">${p.local}</span>
+                            </div>
+                            <div class="flex items-center space-x-1 justify-center w-[16%]">
+                                <input type="number" min="0" placeholder="-" class="score-local w-9 h-9 bg-slate-950 border border-slate-700 rounded-lg text-center font-bold text-emerald-400 focus:outline-none focus:border-emerald-400">
+                                <input type="number" min="0" placeholder="-" class="score-visit w-9 h-9 bg-slate-950 border border-slate-700 rounded-lg text-center font-bold text-emerald-400 focus:outline-none focus:border-emerald-400">
+                            </div>
+                            <div class="flex items-center space-x-2 w-[42%] justify-end text-right">
+                                <span class="font-bold truncate text-sm">${p.visitante}</span>
+                                <span class="text-2xl min-w-[32px] text-center">${flagV}</span>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-[10px] text-slate-500 text-center truncate">
+                            <i class="fa-solid fa-location-dot mr-1"></i> ${p.fecha} • ${p.estadio}
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        async function precargarResultadosExistentes() {
+            try {
+                const res = await fetch('./resultados.json');
+                const datos = await res.json();
+                baseResultadosCargados = datos.resultados || {};
+                if (datos.participantes) {
+                    document.getElementById('admin-participantes').value = datos.participantes.join(', ');
+                }
+            } catch (e) {
+                console.log("No se encontró resultados.json previo, iniciando en limpio.");
+            }
+        }
+
+        function generarCalendarioAdmin() {
+            const contenedor = document.getElementById('contenedor-partidos-admin');
+            contenedor.innerHTML = '';
+            partidosData.forEach(p => {
+                const flagL = banderas[p.local] || "🏳️";
+                const flagV = banderas[p.visitante] || "🏳️";
+                const golesL = baseResultadosCargados[p.id]?.L !== undefined ? baseResultadosCargados[p.id].L : "";
+                const golesV = baseResultadosCargados[p.id]?.V !== undefined ? baseResultadosCargados[p.id].V : "";
+                
+                contenedor.insertAdjacentHTML('beforeend', `
+                    <div class="admin-match-card bg-slate-950 border border-slate-800 rounded-xl p-3 flex flex-col justify-between" data-id="${p.id}">
+                        <div class="flex justify-between items-center text-[10px] text-slate-500 font-bold uppercase mb-2">
+                            <span>${p.grupo} (ID: ${p.id})</span>
+                            <span>${p.hora}</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1.5 w-[42%] truncate">
+                                <span class="text-xl">${flagL}</span>
+                                <span class="text-xs font-bold truncate text-slate-300">${p.local}</span>
+                            </div>
+                            <div class="flex items-center space-x-1 justify-center w-[16%]">
+                                <input type="number" min="0" value="${golesL}" placeholder="-" class="admin-score-local w-8 h-8 bg-slate-900 border border-slate-700 rounded text-center text-xs font-bold text-amber-400 focus:outline-none focus:border-amber-400">
+                                <input type="number" min="0" value="${golesV}" placeholder="-" class="admin-score-visit w-8 h-8 bg-slate-900 border border-slate-700 rounded text-center text-xs font-bold text-amber-400 focus:outline-none focus:border-amber-400">
+                            </div>
+                            <div class="flex items-center space-x-1.5 w-[42%] justify-end text-right truncate">
+                                <span class="text-xs font-bold truncate text-slate-300">${p.visitante}</span>
+                                <span class="text-xl">${flagV}</span>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        function generarJsonResultados() {
+            const participantesTexto = document.getElementById('admin-participantes').value;
+            const listaParticipantes = participantesTexto.split(',')
+                                            .map(p => p.trim())
+                                            .filter(p => p.length > 0);
+
+            let resultadosGuardar = {};
+            document.querySelectorAll('.admin-match-card').forEach(card => {
+                const id = card.getAttribute('data-id');
+                const gL = card.querySelector('.admin-score-local').value;
+                const gV = card.querySelector('.admin-score-visit').value;
+                
+                if (gL !== "" && gV !== "") {
+                    resultadosGuardar[id] = { L: parseInt(gL), V: parseInt(gV) };
+                }
+            });
+
+            const resultadosCompletos = {
+                participantes: listaParticipantes,
+                resultados: resultadosGuardar
+            };
+
+            // Actualizar memoria local inmediata para las tablas dinámicas actuales
+            baseResultadosCargados = resultadosGuardar;
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(resultadosCompletos, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "resultados.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            alert("✅ Archivo 'resultados.json' descargado. Recuerda arrastrarlo a la carpeta raíz de tu repositorio de GitHub para actualizar a la familia.");
+        }
+
+        function generarSeccionGrupos() {
+            const contenedor = document.getElementById('contenedor-grupos');
+            contenedor.innerHTML = '';
+            let mapa = {};
+            partidosData.forEach(p => {
+                if (!mapa[p.grupo]) mapa[p.grupo] = new Set();
+                mapa[p.grupo].add(p.local); 
+                mapa[p.grupo].add(p.visitante);
+            });
+
+            Object.keys(mapa).sort().forEach(grupo => {
+                let listaHTML = '';
+                Array.from(mapa[grupo]).forEach(eq => {
+                    listaHTML += `
+                        <div class="flex items-center space-x-3 p-2 rounded-lg bg-slate-950/50 border border-slate-800/40">
+                            <span class="text-xl">${banderas[eq] || "🏳️"}</span>
+                            <span class="text-sm font-semibold text-slate-200">${eq}</span>
+                        </div>
+                    `;
+                });
+                contenedor.insertAdjacentHTML('beforeend', `
+                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl shadow-md space-y-3">
+                        <div class="text-center font-extrabold text-sm tracking-wider uppercase text-emerald-400 border-b border-slate-700 pb-2">${grupo}</div>
+                        <div class="space-y-1.5">${listaHTML}</div>
+                    </div>
+                `);
+            });
+        }
+
+        async function generarTablasPosicionesMundial() {
+            const contenedor = document.getElementById('contenedor-tablas-reales');
+            contenedor.innerHTML = '<div class="col-span-full text-center text-slate-400 py-4"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando clasificaciones reales...</div>';
+
+            let estadisticas = {};
+            partidosData.forEach(p => {
+                [p.local, p.visitante].forEach(eq => {
+                    if (!estadisticas[eq]) {
+                        estadisticas[eq] = { nombre: eq, grupo: p.grupo, pts: 0, pj: 0, gf: 0, gc: 0, gd: 0 };
+                    }
+                });
+
+                if (baseResultadosCargados[p.id] !== undefined) {
+                    const r = baseResultadosCargados[p.id];
+                    if (r.L !== "" && r.V !== "" && r.L !== null && r.V !== null) {
+                        const gl = parseInt(r.L);
+                        const gv = parseInt(r.V);
+
+                        estadisticas[p.local].pj++;
+                        estadisticas[p.visitante].pj++;
+                        estadisticas[p.local].gf += gl;
+                        estadisticas[p.local].gc += gv;
+                        estadisticas[p.visitante].gf += gv;
+                        estadisticas[p.visitante].gc += gl;
+
+                        if (gl > gv) {
+                            estadisticas[p.local].pts += 3;
+                        } else if (gl < gv) {
+                            estadisticas[p.visitante].pts += 3;
+                        } else {
+                            estadisticas[p.local].pts += 1;
+                            estadisticas[p.visitante].pts += 1;
+                        }
+                    }
+                }
+            });
+
+            for (let k in estadisticas) {
+                estadisticas[k].gd = estadisticas[k].gf - estadisticas[k].gc;
+            }
+
+            let gruposEstadisticas = {};
+            for (let k in estadisticas) {
+                let g = estadisticas[k].grupo;
+                if (!gruposEstadisticas[g]) gruposEstadisticas[g] = [];
+                gruposEstadisticas[g].push(estadisticas[k]);
+            }
+
+            contenedor.innerHTML = '';
+            Object.keys(gruposEstadisticas).sort().forEach(grupoName => {
+                let equiposOrdenados = gruposEstadisticas[grupoName].sort((a,b) => {
+                    if (b.pts !== a.pts) return b.pts - a.pts;
+                    if (b.gd !== a.gd) return b.gd - a.gd;
+                    return b.gf - a.gf;
+                });
+
+                let filasHTML = '';
+                equiposOrdenados.forEach((eq, index) => {
+                    const bandera = banderas[eq.nombre] || "🏳️";
+                    const filaClase = index < 2 ? "bg-emerald-500/5 text-slate-100" : "text-slate-400";
+                    
+                    filasHTML += `
+                        <tr class="${filaClase} border-b border-slate-800/60 text-xs font-semibold">
+                            <td class="p-2 text-center font-bold text-slate-400">${index + 1}</td>
+                            <td class="p-2 flex items-center space-x-1.5 truncate max-w-[150px]">
+                                <span>${bandera}</span>
+                                <span class="font-bold text-slate-200 truncate">${eq.nombre}</span>
+                            </td>
+                            <td class="p-2 text-center font-bold text-emerald-400">${eq.pts}</td>
+                            <td class="p-2 text-center">${eq.pj}</td>
+                            <td class="p-2 text-center">${eq.gf}:${eq.gc}</td>
+                            <td class="p-2 text-center font-mono ${eq.gd > 0 ? 'text-blue-400': eq.gd < 0 ? 'text-rose-400':''}">${eq.gd > 0 ? '+'+eq.gd : eq.gd}</td>
+                        </tr>
+                    `;
+                });
+
+                contenedor.insertAdjacentHTML('beforeend', `
+                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-lg space-y-2">
+                        <div class="text-sm font-extrabold text-emerald-400 tracking-wider border-b border-slate-700 pb-1.5 uppercase text-center">${grupoName}</div>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-slate-500 text-[10px] uppercase font-bold tracking-wider border-b border-slate-700/60">
+                                    <th class="p-2 text-center w-6">#</th>
+                                    <th class="p-2">Equipo</th>
+                                    <th class="p-2 text-center w-8">Pts</th>
+                                    <th class="p-2 text-center w-6">PJ</th>
+                                    <th class="p-2 text-center w-10">Goles</th>
+                                    <th class="p-2 text-center w-8">DG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${filasHTML}
+                            </tbody>
+                        </table>
+                    </div>
+                `);
+            });
+        }
+
+        function guardarPronosticos() {
+            const nombre = document.getElementById('nombreUsuario').value.trim();
+            if (!nombre) { alert('⚠️ Escribe tu nombre arriba antes de guardar.'); return; }
+            const jugada = { usuario: nombre, pronosticos: {} };
+            let c = 0;
+            document.querySelectorAll('.match-card').forEach(card => {
+                const id = card.getAttribute('data-id');
+                const gL = card.querySelector('.score-local').value;
+                const gV = card.querySelector('.score-visit').value;
+                if (gL !== "" && gV !== "") {
+                    jugada.pronosticos[id] = { L: parseInt(gL), V: parseInt(gV) };
+                    c++;
+                }
+            });
+            if (c === 0) { alert('⚠️ Escribe al menos un resultado.'); return; }
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jugada, null, 2));
+            const a = document.createElement('a'); a.setAttribute("href", dataStr);
+            a.setAttribute("download", `quiniela_${nombre.toLowerCase().replace(/[^a-z0-9]/g, '_')}.json`);
+            document.body.appendChild(a); a.click(); a.remove();
+        }
+
+        function calcularPuntos(jugadaUsuario, resultadosReales) {
+            let puntos = 0;
+            for (let id in resultadosReales) {
+                if (jugadaUsuario.pronosticos && jugadaUsuario.pronosticos[id]) {
+                    const pred = jugadaUsuario.pronosticos[id];
+                    const real = resultadosReales[id];
+                    if(real.L === null || real.V === null || real.L === "" || real.V === "") continue;
+                    const sp = pred.L > pred.V ? 'L' : (pred.L < pred.V ? 'V' : 'E');
+                    const sr = real.L > real.V ? 'L' : (real.L < real.V ? 'V' : 'E');
+                    if (pred.L === real.L && pred.V === real.V) puntos += 5;
+                    else if (sp === sr && (pred.L - pred.V === real.L - real.V)) puntos += 3;
+                    else if (sp === sr) puntos += 1;
+                }
+            }
+            return puntos;
+        }
+
+        async function cargarLeaderboard() {
+            const tabla = document.getElementById('tabla-leaderboard');
+            try {
+                const resCentral = await fetch('./resultados.json');
+                const datosCentrales = await resCentral.json();
+                const listaArchivos = datosCentrales.participantes || [];
+                const resultadosReales = datosCentrales.resultados || {};
+                let ranking = [];
+
+                for (let archivo of listaArchivos) {
+                    try {
+                        const resUser = await fetch(`./jugadas/${archivo}`);
+                        const jugadaUsuario = await resUser.json();
+                        const totalPuntos = calcularPuntos(jugadaUsuario, resultadosReales);
+                        ranking.push({ usuario: jugadaUsuario.usuario, puntos: totalPuntos });
+                    } catch (e) { console.log("Error leyendo archivo: " + archivo); }
+                }
+
+                ranking.sort((a, b) => b.puntos - a.puntos);
+                tabla.innerHTML = '';
+                if (ranking.length === 0) {
+                    tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados todavía o falta configurar 'resultados.json'.</td></tr>`;
+                    return;
+                }
+                ranking.forEach((player, index) => {
+                    let medalla = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}`;
+                    tabla.insertAdjacentHTML('beforeend', `
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="p-4 text-center font-bold text-base">${medalla}</td>
+                            <td class="p-4 text-white font-bold">${player.usuario}</td>
+                            <td class="p-4 text-center text-emerald-400 font-extrabold text-base">${player.puntos} pts</td>
+                        </tr>
+                    `);
+                });
+            } catch (error) {
+                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar el archivo 'resultados.json' en tu GitHub.</td></tr>`;
+            }
+        }
+
+        // Inicio automático de la web
+        window.onload = async function() {
+            cargarPartidos();
+            await precargarResultadosExistentes();
+        };
+    </script>
+</body>
+</html>
