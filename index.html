@@ -356,7 +356,7 @@
             dlAnchorElem.click();
         }
 
-     // FUNCIÓN MATEMÁTICA CORREGIDA (SÓLO MODIFICA LA LOGICA DE GRUPOS SIN TOCAR LO VISUAL)
+        // FUNCIÓN MATEMÁTICA CORREGIDA (SÓLO MODIFICA LA LOGICA DE GRUPOS SIN TOCAR LO VISUAL)
         async function ejecutarCalculoRankingYGrupos() {
             const tabla = document.getElementById('tabla-ranking');
             tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando estadísticas familiares...</td></tr>`;
@@ -376,11 +376,11 @@
                 const resultadosReales = master.resultados || {};
                 const participantes = master.participantes || [];
 
-                // 1. PROCESAR SÓLO LOS PARTIDOS QUE SÍ TIENEN GOLES REALES CONFIRMADOS EN resultados.json
+                // PROCESAR SÓLO LOS PARTIDOS QUE SÍ TIENEN GOLES REALES CONFIRMADOS
                 partidosFaseGrupos.forEach(partido => {
                     const res = resultadosReales[partido.id];
                     
-                    // FILTRO ESTRICTO: Si el resultado no está en el JSON o viene incompleto, pasamos de largo
+                    // FILTRO ESTRICTO: Si el resultado no está en el JSON o viene incompleto, pasamos de largo y no rompe las tablas
                     if (!res || res.L === undefined || res.V === undefined || res.L === null || res.V === null || res.L === "" || res.V === "") {
                         return; 
                     }
@@ -410,71 +410,6 @@
                         equiposMundial[partido.visitante].pts += 1;
                     }
                 });
-
-                // Llamar a tu función original para renderizar las tablas estéticas de los grupos mundiales
-                renderizarTablasVisualesGrupos();
-
-                // 2. CALCULAR EL RANKING GENERAL DE LA FAMILIA
-                let ranking = [];
-                for (const archivo of participantes) {
-                    try {
-                        const resUser = await fetch(`jugadas/${archivo}?t=` + new Date().getTime());
-                        if(!resUser.ok) continue;
-                        const userJson = await resUser.json();
-                        
-                        let puntosUsuario = 0;
-                        const pronosticos = userJson.pronosticos || {};
-
-                        for (let pId in resultadosReales) {
-                            const real = resultadosReales[pId];
-                            
-                            // SOLUCIÓN AL CONFLECTO DE LLAVES: Buscar el ID como texto ("1") o como número (1)
-                            const prono = pronosticos[pId] || pronosticos[Number(pId)];
-
-                            if(!real || !prono || real.L === undefined || prono.L === undefined || real.L === "" || prono.L === "") continue;
-
-                            const rL = parseInt(real.L); const rV = parseInt(real.V);
-                            const pL = parseInt(prono.L); const pV = parseInt(prono.V);
-
-                            // Sistema de puntos escalonado familiar original
-                            if (rL === pL && rV === pV) {
-                                puntosUsuario += 5; // Marcador exacto
-                            } else if ((rL > rV && pL > pV) || (rL < rV && pL < pV) || (rL === rV && pL === pV)) {
-                                puntosUsuario += 3; // Tendencia correcta (ganador o empate)
-                            }
-                        }
-                        ranking.push({ usuario: userJson.usuario || archivo, puntos: puntosUsuario });
-                    } catch(err) {
-                        console.log("Error leyendo jugada:", archivo, err);
-                    }
-                }
-
-                // Ordenar el ranking de mayor a menor
-                ranking.sort((a, b) => b.puntos - a.puntos);
-                
-                tabla.innerHTML = '';
-                if (ranking.length === 0) {
-                    tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados todavía o falta configurar 'resultados.json'.</td></tr>`;
-                    return;
-                }
-                
-                // Dibujar el ranking familiar en tu tabla con medallas
-                ranking.forEach((player, index) => {
-                    let medalla = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}`;
-                    tabla.insertAdjacentHTML('beforeend', `
-                        <tr class="hover:bg-slate-800/30 transition">
-                            <td class="p-4 text-center font-bold text-base">${medalla}</td>
-                            <td class="p-4 text-white font-bold">${player.usuario}</td>
-                            <td class="p-4 text-center text-emerald-400 font-extrabold text-base">${player.puntos} pts</td>
-                        </tr>
-                    `);
-                });
-
-            } catch (error) {
-                console.error(error);
-                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar el archivo 'resultados.json' en tu GitHub.</td></tr>`;
-            }
-        }
 
                 // Renderizar las tablas estéticas de los grupos mundiales
                 renderizarTablasVisualesGrupos();
