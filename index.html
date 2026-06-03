@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="es\">\n<head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiniela Mundial 2026 🏆</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel=\"stylesheet\" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
 
     <nav class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50 shadow-lg">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <h1 class="text-lg md:text-xl font-extrabold tracking-wider text-emerald-400 flex items-center">
-                <i class="fa-solid fa-trophy mr-2 animate-pulse"></i>QUINIELA 2026
+                <i class="fa-solid fa-trophy mr-2 animate-pulse"></i>QUINIELA FAMILIAR 2026
             </h1>
             <div class="flex flex-wrap gap-1 justify-center">
                 <button onclick="cambiarPestaña('pronosticos')" id="btn-pronosticos" class="bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition">
@@ -41,10 +42,11 @@
             
             <div class="flex justify-between items-center bg-slate-800/50 p-4 rounded-xl border border-slate-700/60">
                 <h3 class="font-bold text-lg text-slate-200">Fase de Grupos</h3>
-                <span class="bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-bold border border-emerald-500/20">8 Partidos Disponibles</span>
+                <span class="bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-bold border border-emerald-500/20">48 Partidos Disponibles</span>
             </div>
             
-            <div id="contenedor-partidos-pronosticos" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            <div id="contenedor-partidos-pronosticos" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                </div>
             
             <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl text-center space-y-4">
                 <p class="text-sm text-slate-400">Una vez que completes todos tus marcadores, genera tu archivo de jugada y envíaselo al administrador por WhatsApp.</p>
@@ -58,7 +60,8 @@
             <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl">
                 <h2 class="text-xl font-bold mb-2 text-emerald-400 flex items-center"><i class="fa-solid fa-table-list mr-2"></i> Tabla de Posiciones de Grupos Reales</h2>
                 <p class="text-sm text-slate-400 mb-4">Así marchan los grupos oficiales del mundial según los resultados reales cargados.</p>
-                <div id="contenedor-grupos" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                <div id="contenedor-grupos" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    </div>
             </div>
         </section>
 
@@ -77,7 +80,8 @@
                                 <th class="p-4 text-center w-32">Puntos Totales</th>
                             </tr>
                         </thead>
-                        <tbody id="tabla-ranking" class="divide-y divide-slate-700/50"></tbody>
+                        <tbody id="tabla-ranking" class="divide-y divide-slate-700/50">
+                            </tbody>
                     </table>
                 </div>
             </div>
@@ -99,14 +103,15 @@
                 <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h3 class="text-lg font-bold text-slate-200 flex items-center"><i class="fa-solid fa-users mr-2"></i> 1. Administrar Participantes</h3>
                     <div>
-                        <label class="block text-xs uppercase font-bold tracking-wider text-slate-400 mb-2">Archivos de la carpeta 'jugadas' (separados por comas)</label>
+                        <label class="block text-xs uppercase font-bold tracking-wider text-slate-400 mb-2">Listado de archivos JSON de participantes (separados por comas, sin la ruta 'jugadas/')</label>
                         <textarea id="lista-participantes" rows="2" placeholder="ejemplo: quiniela_luisprueba.json, quiniela_tio_carlos.json" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 font-mono text-sm transition"></textarea>
                     </div>
                 </div>
 
                 <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl">
                     <h3 class="text-lg font-bold text-slate-200 mb-4 flex items-center"><i class="fa-solid fa-soccer-ball mr-2"></i> 2. Ingresar Resultados Reales de los Partidos</h3>
-                    <div id="contenedor-partidos-admin" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    <div id="contenedor-partidos-admin" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        </div>
                 </div>
 
                 <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl text-center space-y-4">
@@ -125,31 +130,78 @@
     </footer>
 
     <script>
-        // Configuración Base de Datos de los Partidos del Mundial
+        // Configuración Base de Datos de los 48 Partidos del Mundial 2026 (Fase de Grupos)
         const partidos = [
-            { id: 1, grupo: "A", local: "Estados Unidos 🇺🇸", visitante: "Marruecos 🇲🇦" },
-            { id: 2, grupo: "A", local: "México 🇲🇽", visitante: "Sudáfrica 🇿🇦" },
-            { id: 3, grupo: "B", local: "Argentina 🇦🇷", visitante: "Suecia 🇸🇪" },
-            { id: 4, grupo: "B", local: "España 🇪🇸", visitante: "Catar 🇶🇦" },
-            { id: 5, grupo: "C", local: "Brasil 🇧🇷", visitante: "Irlanda 🇮🇪" },
-            { id: 6, grupo: "C", local: "Italia 🇮🇹", visitante: "Camerún 🇨🇲" },
-            { id: 7, grupo: "D", local: "Francia 🇫🇷", visitante: "Canadá 🇨🇦" },
-            { id: 8, grupo: "D", local: "Alemania 🇩🇪", visitante: "Australia 🇦🇺" }
+            { id: 1, grupo: "A", local: "México 🇲🇽", visitante: "Sudáfrica 🇿🇦" },
+            { id: 2, grupo: "A", local: "Estados Unidos 🇺🇸", visitante: "Marruecos 🇲🇦" },
+            { id: 3, grupo: "A", local: "México 🇲🇽", visitante: "Marruecos 🇲🇦" },
+            { id: 4, grupo: "A", local: "Estados Unidos 🇺🇸", visitante: "Sudáfrica 🇿🇦" },
+            { id: 5, grupo: "A", local: "Sudáfrica 🇿🇦", visitante: "Marruecos 🇲🇦" },
+            { id: 6, grupo: "A", local: "México 🇲🇽", visitante: "Estados Unidos 🇺🇸" },
+            { id: 7, grupo: "B", local: "Canadá 🇨🇦", visitante: "Argelia 🇩🇿" },
+            { id: 8, grupo: "B", local: "Corea del Sur 🇰🇷", visitante: "Ecuador 🇪🇨" },
+            { id: 9, grupo: "B", local: "Canadá 🇨🇦", visitante: "Ecuador 🇪🇨" },
+            { id: 10, grupo: "B", local: "Corea del Sur 🇰🇷", visitante: "Argelia 🇩🇿" },
+            { id: 11, grupo: "B", local: "Argelia 🇩🇿", visitante: "Ecuador 🇪🇨" },
+            { id: 12, grupo: "B", local: "Canadá 🇨🇦", visitante: "Corea del Sur 🇰🇷" },
+            { id: 13, grupo: "C", local: "Uruguay 🇺🇾", visitante: "Jamaica 🇯🇲" },
+            { id: 14, grupo: "C", local: "Japón 🇯🇵", visitante: "Austria 🇦🇹" },
+            { id: 15, grupo: "C", local: "Uruguay 🇺🇾", visitante: "Austria 🇦🇹" },
+            { id: 16, grupo: "C", local: "Japón 🇯🇵", visitante: "Jamaica 🇯🇲" },
+            { id: 17, grupo: "C", local: "Jamaica 🇯🇲", visitante: "Austria 🇦🇹" },
+            { id: 18, grupo: "C", local: "Uruguay 🇺🇾", visitante: "Japón 🇯🇵" },
+            { id: 19, grupo: "D", local: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿", visitante: "Omán 🇴🇲" },
+            { id: 20, grupo: "D", local: "Suiza 🇨🇭", visitante: "Ghana 🇬🇭" },
+            { id: 21, grupo: "D", local: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿", visitante: "Ghana 🇬🇭" },
+            { id: 22, grupo: "D", local: "Suiza 🇨🇭", visitante: "Omán 🇴🇲" },
+            { id: 23, grupo: "D", local: "Omán 🇴🇲", visitante: "Ghana 🇬🇭" },
+            { id: 24, grupo: "D", local: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿", visitante: "Suiza 🇨🇭" },
+            { id: 25, grupo: "E", local: "Países Bajos 🇳🇱", visitante: "Curazao 🇨🇼" },
+            { id: 26, grupo: "E", local: "Irán 🇮🇷", visitante: "Dinamarca 🇩🇰" },
+            { id: 27, grupo: "E", local: "Países Bajos 🇳🇱", visitante: "Dinamarca 🇩🇰" },
+            { id: 28, grupo: "E", local: "Irán 🇮🇷", visitante: "Curazao 🇨🇼" },
+            { id: 29, grupo: "E", local: "Curazao 🇨🇼", visitante: "Dinamarca 🇩🇰" },
+            { id: 30, grupo: "E", local: "Países Bajos 🇳🇱", visitante: "Irán 🇮🇷" },
+            { id: 31, grupo: "F", local: "Croacia 🇭🇷", visitante: "Níger 🇳🇪" },
+            { id: 32, grupo: "F", local: "Colombia 🇨🇴", visitante: "Irak 🇮🇶" },
+            { id: 33, grupo: "F", local: "Croacia 🇭🇷", visitante: "Irak 🇮🇶" },
+            { id: 34, grupo: "F", local: "Colombia 🇨🇴", visitante: "Níger 🇳🇪" },
+            { id: 35, grupo: "F", local: "Níger 🇳🇪", visitante: "Irak 🇮🇶" },
+            { id: 36, grupo: "F", local: "Croacia 🇭🇷", visitante: "Colombia 🇨🇴" },
+            { id: 37, grupo: "G", local: "Portugal 🇵🇹", visitante: "Zambia 🇿🇲" },
+            { id: 38, grupo: "G", local: "Bélgica 🇧🇪", visitante: "Chile 🇨🇱" },
+            { id: 39, grupo: "G", local: "Portugal 🇵🇹", visitante: "Chile 🇨🇱" },
+            { id: 40, grupo: "G", local: "Bélgica 🇧🇪", visitante: "Zambia 🇿🇲" },
+            { id: 41, grupo: "G", local: "Zambia 🇿🇲", visitante: "Chile 🇨🇱" },
+            { id: 42, grupo: "G", local: "Portugal 🇵🇹", visitante: "Bélgica 🇧🇪" },
+            { id: 43, grupo: "H", local: "España 🇪🇸", visitante: "Panamá 🇵🇦" },
+            { id: 44, grupo: "H", local: "Italia 🇮🇹", visitante: "Camerún 🇨🇲" },
+            { id: 45, grupo: "H", local: "España 🇪🇸", visitante: "Camerún 🇨🇲" },
+            { id: 46, grupo: "H", local: "Italia 🇮🇹", visitante: "Panamá 🇵🇦" },
+            { id: 47, grupo: "H", local: "Panamá 🇵🇦", visitante: "Camerún 🇨🇲" },
+            { id: 48, grupo: "H", local: "España 🇪🇸", visitante: "Italia 🇮🇹" }
         ];
 
-        let resultadosReales Globales = {};
+        // Estado Global de Datos de la App
+        let resultadosRealesGlobales = {};
         let listaParticipantesGlobales = [];
 
+        // Lógica de Pestañas
         function cambiarPestaña(pestana) {
+            // Ocultar todas
             ['pronosticos', 'tablas', 'ranking', 'admin'].forEach(p => {
                 document.getElementById(`sec-${p}`).classList.add('hidden');
                 document.getElementById(`btn-${p}`).className = "text-slate-400 hover:text-white font-medium px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition";
             });
+            // Mostrar seleccionada
             document.getElementById(`sec-${pestana}`).classList.remove('hidden');
             
-            const colorBtn = pestana === 'admin' ? 'bg-rose-500 text-white' : 'bg-emerald-500 text-slate-950';
+            // Estilo de botón activo
+            let colorBtn = 'bg-emerald-500 text-slate-950';
+            if(pestana === 'admin') colorBtn = 'bg-rose-500 text-white';
             document.getElementById(`btn-${pestana}`).className = `${colorBtn} font-bold px-3 py-1.5 rounded-lg text-xs md:text-sm cursor-pointer transition shadow-md`;
             
+            // Acciones al cambiar pestaña
             if(pestana === 'ranking') {
                 calcularYMostrarRanking();
             }
@@ -158,6 +210,7 @@
             }
         }
 
+        // Renderizar Partidos en Interfaz de Pronósticos y Admin
         function cargarPartidos() {
             const contenedor = document.getElementById('contenedor-partidos-pronosticos');
             const contenedorAdmin = document.getElementById('contenedor-partidos-admin');
@@ -165,8 +218,8 @@
             contenedorAdmin.innerHTML = '';
 
             partidos.forEach(p => {
-                // Tarjeta del Jugador
-                contenedor.insertAdjacentHTML('beforeend', `
+                // Tarjeta Jugador
+                let htmlPartido = `
                     <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between shadow-md hover:border-slate-600 transition">
                         <div class="flex justify-between items-center mb-2 border-b border-slate-700/50 pb-1.5">
                             <span class="bg-slate-900 text-slate-400 font-bold px-2 py-0.5 rounded text-xs">GRUPO ${p.grupo}</span>
@@ -175,17 +228,18 @@
                         <div class="grid grid-cols-3 items-center gap-2 py-2">
                             <div class="text-right pr-1 font-bold text-sm md:text-base text-slate-200 truncate">${p.local}</div>
                             <div class="flex items-center justify-center gap-1.5">
-                                <input type="number" min="0" id="p-local-${p.id}" class="w-10 h-10 bg-slate-900 border border-slate-700 text-center font-extrabold text-lg text-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500">
+                                <input type="number" min="0" id="p-local-${p.id}" class="w-10 h-10 bg-slate-900 border border-slate-700 text-center font-extrabold text-lg text-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
                                 <span class="text-slate-600 font-bold text-xs">-</span>
-                                <input type="number" min="0" id="p-visitante-${p.id}" class="w-10 h-10 bg-slate-900 border border-slate-700 text-center font-extrabold text-lg text-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500">
+                                <input type="number" min="0" id="p-visitante-${p.id}" class="w-10 h-10 bg-slate-900 border border-slate-700 text-center font-extrabold text-lg text-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
                             </div>
                             <div class="text-left pl-1 font-bold text-sm md:text-base text-slate-200 truncate">${p.visitante}</div>
                         </div>
                     </div>
-                `);
+                `;
+                contenedor.insertAdjacentHTML('beforeend', htmlPartido);
 
-                // Tarjeta del Administrador
-                contenedorAdmin.insertAdjacentHTML('beforeend', `
+                // Tarjeta Admin
+                let htmlAdmin = `
                     <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
                         <div class="flex justify-between items-center mb-2">
                             <span class="bg-slate-800 text-slate-400 font-bold px-2 py-0.5 rounded text-xs">GRUPO ${p.grupo}</span>
@@ -194,16 +248,18 @@
                         <div class="grid grid-cols-3 items-center gap-1">
                             <div class="text-right font-medium text-xs text-slate-300 truncate">${p.local}</div>
                             <div class="flex items-center justify-center gap-1">
-                                <input type="number" min="0" id="adm-local-${p.id}" class="w-9 h-9 bg-slate-800 border border-slate-700 text-center font-bold text-sm text-rose-400 rounded-lg focus:outline-none">
-                                <input type="number" min="0" id="adm-visitante-${p.id}" class="w-9 h-9 bg-slate-800 border border-slate-700 text-center font-bold text-sm text-rose-400 rounded-lg focus:outline-none">
+                                <input type="number" min="0" id="adm-local-${p.id}" class="w-9 h-9 bg-slate-800 border border-slate-700 text-center font-bold text-sm text-rose-400 rounded-lg focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                                <input type="number" min="0" id="adm-visitante-${p.id}" class="w-9 h-9 bg-slate-800 border border-slate-700 text-center font-bold text-sm text-rose-400 rounded-lg focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
                             </div>
                             <div class="text-left font-medium text-xs text-slate-300 truncate">${p.visitante}</div>
                         </div>
                     </div>
-                `);
+                `;
+                contenedorAdmin.insertAdjacentHTML('beforeend', htmlAdmin);
             });
         }
 
+        // Exportar Jugada de Participante a JSON
         function descargarPronosticos() {
             const nombre = document.getElementById('nombre-usuario').value.trim();
             if (!nombre) {
@@ -233,9 +289,10 @@
             a.click();
         }
 
+        // Control de Acceso Panel Admin
         function verificarAdmin() {
             const pass = document.getElementById('pass-admin').value;
-            if (pass === "admin123") {
+            if (pass === "admin123") { // Contraseña por defecto súper sencilla
                 document.getElementById('panel-admin-contenido').classList.remove('hidden');
                 alert("🔓 Acceso concedido.");
             } else {
@@ -243,6 +300,7 @@
             }
         }
 
+        // Exportar resultados.json (Admin)
         function descargarResultadosJson() {
             const listaTxt = document.getElementById('lista-participantes').value;
             const nombresArchivos = listaTxt.split(',').map(s => s.trim()).filter(s => s !== "");
@@ -265,6 +323,7 @@
             a.click();
         }
 
+        // Obtener la configuración general 'resultados.json'
         async function precargarResultadosExistentes() {
             try {
                 const res = await fetch(`./resultados.json?t=${Date.now()}`);
@@ -274,6 +333,7 @@
                 resultadosRealesGlobales = data.resultados || {};
                 listaParticipantesGlobales = data.participantes || [];
 
+                // Rellenar panel admin
                 document.getElementById('lista-participantes').value = listaParticipantesGlobales.join(', ');
 
                 for (let id in resultadosRealesGlobales) {
@@ -287,20 +347,25 @@
             }
         }
 
+        // Algoritmo de Cálculo de Puntos Familiar
         function calcularPuntosPartido(pred, real) {
             if (!real) return 0;
-            if (pred.L === real.L && pred.V === real.V) return 5; // Marcador Exacto
+            // 1. Marcador Exacto (5 Puntos)
+            if (pred.L === real.L && pred.V === real.V) return 5;
             
             const signoPred = pred.L > pred.V ? 1 : pred.L < pred.V ? -1 : 0;
             const signoReal = real.L > real.V ? 1 : real.L < real.V ? -1 : 0;
             
+            // 2. Acertó Ganador o Empate básico
             if (signoPred === signoReal) {
-                if ((pred.L - pred.V) === (real.L - real.V)) return 3; // Diferencia de goles
-                return 2; // Acertó ganador / empate básico
+                // Caso especial: misma diferencia de goles (3 Puntos)
+                if ((pred.L - pred.V) === (real.L - real.V)) return 3;
+                return 2; // Acertó tendencia pero no diferencia (2 Puntos)
             }
-            return 0;
+            return 0; // Fallo total
         }
 
+        // Renderizar Tablas de Posiciones Reales del Mundial por Grupo
         function renderizarGruposReales() {
             const contenedor = document.getElementById('contenedor-grupos');
             contenedor.innerHTML = '';
@@ -348,7 +413,7 @@
                     `;
                 });
 
-                contenedor.insertAdjacentHTML('beforeend', `
+                let htmlGrupo = `
                     <div class="bg-slate-900/50 rounded-xl border border-slate-700 p-3 shadow-md">
                         <div class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider mb-2">Grupo ${g}</div>
                         <table class="w-full text-left">
@@ -363,61 +428,71 @@
                             <tbody>${filasHtml}</tbody>
                         </table>
                     </div>
-                `);
+                `;
+                contenedor.insertAdjacentHTML('beforeend', htmlGrupo);
             }
         }
 
+        // LÓGICA PRINCIPAL: Procesar jugadas y armar el Ranking Familiar en Vivo
         async function calcularYMostrarRanking() {
             const tabla = document.getElementById('tabla-ranking');
             tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando puntajes en vivo...</td></tr>`;
             
-            await precargarResultadosExistentes();
-            let ranking = [];
+            try {
+                await precargarResultadosExistentes();
+                let ranking = [];
 
-            for (let part of listaParticipantesGlobales) {
-                if (!part) continue;
-                try {
-                    let nombreArchivo = part.endsWith('.json') ? part : `${part}.json`;
-                    const res = await fetch(`./jugadas/${nombreArchivo}?t=${Date.now()}`);
-                    if (!res.ok) continue;
-                    
-                    const pronosticosUser = await res.json();
-                    let puntosTotales = 0;
+                for (let part of listaParticipantesGlobales) {
+                    if (!part) continue;
+                    try {
+                        let nombreArchivo = part.endsWith('.json') ? part : `${part}.json`;
+                        const res = await fetch(`./jugadas/${nombreArchivo}?t=${Date.now()}`);
+                        if (!res.ok) continue;
+                        
+                        const pronosticosUser = await res.json();
+                        let puntosTotales = 0;
 
-                    for (let id in resultadosRealesGlobales) {
-                        if (pronosticosUser.pronosticos && pronosticosUser.pronosticos[id]) {
-                            puntosTotales += calcularPuntosPartido(pronosticosUser.pronosticos[id], resultadosRealesGlobales[id]);
+                        for (let id in resultadosRealesGlobales) {
+                            if (pronosticosUser.pronosticos && pronosticosUser.pronosticos[id]) {
+                                puntosTotales += calcularPuntosPartido(pronosticosUser.pronosticos[id], resultadosRealesGlobales[id]);
+                            }
                         }
+
+                        // USAMOS EL NOMBRE DIRECTAMENTE DEL INTERIOR DEL JSON DE JUGADA
+                        ranking.push({
+                            usuario: pronosticosUser.usuario || part.replace('.json', ''),
+                            puntos: puntosTotales
+                        });
+                    } catch (e) {
+                        console.error("Error cargando jugada de:", part, e);
                     }
-
-                    ranking.push({
-                        usuario: pronosticosUser.usuario || part.replace('.json', ''),
-                        puntos: puntosTotales
-                    });
-                } catch (e) {
-                    console.error("Error cargando jugada de:", part, e);
                 }
-            }
 
-            ranking.sort((a, b) => b.puntos - a.puntos);
-            tabla.innerHTML = '';
-            
-            if (ranking.length === 0) {
-                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados todavía o falta configurar 'resultados.json'.</td></tr>`;
-                return;
+                // Ordenar de Mayor a Menor Puntaje
+                ranking.sort((a, b) => b.puntos - a.puntos);
+                tabla.innerHTML = '';
+                
+                if (ranking.length === 0) {
+                    tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500 italic">No hay participantes registrados todavía o falta configurar 'resultados.json'.</td></tr>`;
+                    return;
+                }
+                
+                ranking.forEach((player, index) => {
+                    let medalla = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}`;
+                    tabla.insertAdjacentHTML('beforeend', `
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="p-4 text-center font-bold text-base">${medalla}</td>
+                            <td class="p-4 text-white font-bold">${player.usuario}</td>
+                            <td class="p-4 text-center text-emerald-400 font-extrabold text-base">${player.puntos} pts</td>
+                        </tr>
+                    `);
+                });
+            } catch (error) {
+                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar el archivo 'resultados.json' en tu GitHub.</td></tr>`;
             }
-            
-            ranking.forEach((player, index) => {
-                let medalla = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}`;\n                tabla.insertAdjacentHTML('beforeend', `
-                    <tr class="hover:bg-slate-800/30 transition">
-                        <td class="p-4 text-center font-bold text-base">${medalla}</td>
-                        <td class="p-4 text-white font-bold">${player.usuario}</td>
-                        <td class="p-4 text-center text-emerald-400 font-extrabold text-base">${player.puntos} pts</td>
-                    </tr>
-                `);
-            });
         }
 
+        // Inicio automático de la web
         window.onload = async function() {
             cargarPartidos();
             await precargarResultadosExistentes();
