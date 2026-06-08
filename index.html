@@ -103,7 +103,7 @@
                 <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
                     <div class="bg-slate-750 p-4 border-b border-slate-700">
                         <h3 class="text-base font-black text-white"><i class="fa-solid fa-square-poll-horizontal text-rose-400 mr-1"></i> Cargar Resultados Reales del Mundial</h3>
-                        <p class="text-xxs text-slate-400 mt-0.5">Ecribe los marcadores oficiales que vayan sucediendo en el torneo real.</p>
+                        <p class="text-xxs text-slate-400 mt-0.5">Escribe los marcadores oficiales que vayan sucediendo en el torneo real.</p>
                     </div>
                     <div id="contenedor-partidos-admin" class="divide-y divide-slate-700/50 p-2 max-h-[50vh] overflow-y-auto"></div>
                 </div>
@@ -118,7 +118,7 @@
     </main>
 
     <script>
-        // BASE DE DATOS ESTRUCTURAL DEL MUNDIAL 2026
+        // BASE DE DATOS ESTRUCTURAL DEL MUNDIAL
         const equiposMundial = {
             "México": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇲🇽" },
             "Sudáfrica": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇿🇦" },
@@ -141,7 +141,7 @@
             "Japón": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇯🇵" },
             "Camerún": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇨🇲" },
             "Italia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇮🇹" },
-            "Paraguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇵🇾" },
+            "Paraguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, font:"F", grupo:"F", bandera:"🇵🇾" },
             "Nueva Zelanda": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇳🇿" },
             "Eslovaquia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇸🇰" },
             "Brasil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇧🇷" },
@@ -159,7 +159,7 @@
             { id: 2, grupo: "A", local: "Uruguay", visitante: "Francia" },
             { id: 3, grupo: "B", local: "Corea del Sur", visitante: "Grecia" },
             { id: 4, grupo: "B", local: "Argentina", visitante: "Nigeria" },
-            { id: 5, group: "C", local: "Inglaterra", visitante: "EEUU" },
+            { id: 5, grupo: "C", local: "Inglaterra", visitante: "EEUU" }, // BUG SOLUCIONADO: Corregido 'group' por 'grupo'
             { id: 6, grupo: "C", local: "Argelia", visitante: "Eslovenia" },
             { id: 7, grupo: "D", local: "Alemania", visitante: "Australia" },
             { id: 8, grupo: "D", local: "Serbia", visitante: "Ghana" },
@@ -175,10 +175,10 @@
             { id: 18, grupo: "A", local: "Francia", visitante: "México" },
             { id: 19, grupo: "B", local: "Grecia", visitante: "Nigeria" },
             { id: 20, grupo: "B", local: "Argentina", visitante: "Corea del Sur" },
-            { id: 21, grupo: "C", local: "Alemania", visitante: "Serbia" },
+            { id: 21, grupo: "D", local: "Alemania", visitante: "Serbia" }, // Ajustado grupo visual
             { id: 22, grupo: "C", local: "Eslovenia", visitante: "EEUU" },
-            { id: 23, grupo: "D", local: "Inglaterra", visitante: "Argelia" },
-            { id: 24, grupo: "D", local: "Ghana", visitante: "Australia" },
+            { id: 23, grupo: "C", local: "Inglaterra", visitante: "Argelia" },
+            { id: 24, geometry: "D", grupo: "D", local: "Ghana", visitante: "Australia" },
             { id: 25, grupo: "E", local: "Países Bajos", visitante: "Japón" },
             { id: 26, grupo: "E", local: "Camerún", visitante: "Dinamarca" },
             { id: 27, grupo: "F", local: "Eslovaquia", visitante: "Paraguay" },
@@ -195,10 +195,10 @@
             { id: 38, grupo: "C", local: "EEUU", visitante: "Argelia" },
             { id: 39, grupo: "D", local: "Ghana", visitante: "Alemania" },
             { id: 40, grupo: "D", local: "Australia", visitante: "Serbia" },
-            { id: 41, grupo: "E", local: "Eslovaquia", visitante: "Italia" },
-            { id: 42, grupo: "E", local: "Paraguay", visitante: "Nueva Zelanda" },
-            { id: 43, grupo: "F", local: "Dinamarca", visitante: "Japón" },
-            { id: 44, grupo: "F", local: "Camerún", visitante: "Países Bajos" },
+            { id: 41, grupo: "F", local: "Eslovaquia", visitante: "Italia" },
+            { id: 42, grupo: "F", local: "Paraguay", visitante: "Nueva Zelanda" },
+            { id: 43, grupo: "E", local: "Dinamarca", visitante: "Japón" },
+            { id: 44, grupo: "E", local: "Camerún", visitante: "Países Bajos" },
             { id: 45, grupo: "G", local: "Portugal", visitante: "Brasil" },
             { id: 46, grupo: "G", local: "Corea del Norte", visitante: "Costa de Marfil" },
             { id: 47, grupo: "H", local: "Chile", visitante: "España" },
@@ -356,12 +356,12 @@
             dlAnchorElem.click();
         }
 
-        // FUNCIÓN MATEMÁTICA CORREGIDA (SÓLO MODIFICA LA LOGICA DE GRUPOS SIN TOCAR LO VISUAL)
+        // MOTOR MATEMÁTICO CORREGIDO Y ROBUSTO
         async function ejecutarCalculoRankingYGrupos() {
             const tabla = document.getElementById('tabla-ranking');
             tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando estadísticas familiares...</td></tr>`;
             
-            // Reiniciar base matemática de equipos para recalcular limpio
+            // Reiniciar tablas matemáticas limpias
             for (let eq in equiposMundial) {
                 equiposMundial[eq].pj = 0; equiposMundial[eq].pg = 0; equiposMundial[eq].pe = 0;
                 equiposMundial[eq].pp = 0; equiposMundial[eq].gf = 0; equiposMundial[eq].gc = 0;
@@ -376,11 +376,10 @@
                 const resultadosReales = master.resultados || {};
                 const participantes = master.participantes || [];
 
-                // PROCESAR SÓLO LOS PARTIDOS QUE SÍ TIENEN GOLES REALES CONFIRMADOS
+                // 1. PROCESAR TABLA DE POSICIONES DE LOS EQUIPOS REALES
                 partidosFaseGrupos.forEach(partido => {
                     const res = resultadosReales[partido.id];
                     
-                    // FILTRO ESTRICTO: Si el resultado no está en el JSON o viene incompleto, pasamos de largo y no rompe las tablas
                     if (!res || res.L === undefined || res.V === undefined || res.L === null || res.V === null || res.L === "" || res.V === "") {
                         return; 
                     }
@@ -411,10 +410,9 @@
                     }
                 });
 
-                // Renderizar las tablas estéticas de los grupos mundiales
                 renderizarTablasVisualesGrupos();
 
-                // CALCULAR EL RANKING GENERAL DE LA FAMILIA
+                // 2. CALCULAR EL RANKING CON ALGORITMO OFICIAL CORREGIDO (5, 3, 1 pts)
                 let ranking = [];
                 for (const archivo of participantes) {
                     try {
@@ -429,15 +427,24 @@
                             const real = resultadosReales[pId];
                             const prono = pronosticos[pId];
 
-                            if(!real || !prono || real.L === undefined || prono.L === undefined) continue;
+                            if(!real || !prono || real.L === undefined || prono.L === undefined || real.L === "" || prono.L === "") continue;
 
                             const rL = parseInt(real.L); const rV = parseInt(real.V);
                             const pL = parseInt(prono.L); const pV = parseInt(prono.V);
 
+                            // REGLAS MATEMÁTICAS PENDIENTES IMPLEMENTADAS SÓLIDAMENTE:
+                            const diferenciaReal = rL - rV;
+                            const diferenciaProno = pL - pV;
+
+                            const tendenciaReal = rL > rV ? 1 : (rL < rV ? -1 : 0);
+                            const tendenciaProno = pL > pV ? 1 : (pL < pV ? -1 : 0);
+
                             if (rL === pL && rV === pV) {
-                                puntosUsuario += 5; // Marcador exacto
-                            } else if ((rL > rV && pL > pV) || (rL < rV && pL < pV) || (rL === rV && pL === pV)) {
-                                puntosUsuario += 3; // Tendencia correcta
+                                puntosUsuario += 5; // Acierto Exacto
+                            } else if (tendenciaReal === tendenciaProno && diferenciaReal === diferenciaProno) {
+                                puntosUsuario += 3; // Diferencia de Goles Exacta (Ej: Predijo 2-0, Quedó 3-1)
+                            } else if (tendenciaReal === tendenciaProno) {
+                                puntosUsuario += 1; // Tendencia general / Solo Ganador o Empate
                             }
                         }
                         ranking.push({ usuario: userJson.usuario || archivo, puntos: puntosUsuario });
@@ -464,7 +471,7 @@
                 });
 
             } catch (error) {
-                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar el archivo 'resultados.json' en tu GitHub.</td></tr>`;
+                tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Falta configurar o subir el archivo 'resultados.json' en tu GitHub.</td></tr>`;
             }
         }
 
@@ -483,7 +490,7 @@
                     }
                 }
 
-                // Ordenación clásica por puntos -> gol diferencia -> goles a favor
+                // Criterios de Desempate Oficiales: Puntos -> Gol Diferencia -> Goles a Favor
                 equiposGrupo.sort((a, b) => {
                     if (b.pts !== a.pts) return b.pts - a.pts;
                     let difA = a.gf - a.gc;
