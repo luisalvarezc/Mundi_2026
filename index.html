@@ -45,7 +45,7 @@
             <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
                 <div class="bg-slate-750 p-4 border-b border-slate-700 flex justify-between items-center">
                     <h2 class="text-lg font-extrabold text-white tracking-wide">Fase de Grupos</h2>
-                    <span class="bg-emerald-500/10 text-emerald-400 font-bold px-2.5 py-1 rounded-full text-xs border border-emerald-500/20">48 partidos</span>
+                    <span class="bg-emerald-500/10 text-emerald-400 font-bold px-2.5 py-1 rounded-full text-xs border border-emerald-500/20">72 partidos</span>
                 </div>
                 <div id="contenedor-partidos" class="divide-y divide-slate-700/50 p-2 max-h-[60vh] overflow-y-auto"></div>
             </div>
@@ -88,7 +88,7 @@
             <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-xl backdrop-blur-sm space-y-4">
                 <h2 class="text-xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-lock text-rose-400"></i> Panel de Administración</h2>
                 <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="password" id="pass-admin" placeholder="Contraseña de Administrador" class="bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 transition-all text-sm w-full sm:w-64">
+                    <input type="password" id="pass-admin" placeholder="Contraseña de Admin" class="bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 transition-all text-sm w-full sm:w-64">
                     <button onclick="autenticarAdmin()" class="bg-rose-500 hover:bg-rose-400 text-white font-bold px-5 py-2.5 rounded-xl transition-all shadow-md text-sm cursor-pointer">Ingresar</button>
                 </div>
             </div>
@@ -118,91 +118,132 @@
     </main>
 
     <script>
-        // BASE DE DATOS ESTRUCTURAL DEL MUNDIAL
+        // BASE DE DATOS ESTRUCTURAL DEL MUNDIAL 2026
         const equiposMundial = {
             "México": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇲🇽" },
             "Sudáfrica": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇿🇦" },
-            "Uruguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇺🇾" },
-            "Francia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇫🇷" },
-            "Argentina": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇦🇷" },
-            "Nigeria": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇳🇬" },
-            "Corea del Sur": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇰🇷" },
-            "Grecia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇬🇷" },
-            "Inglaterra": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
-            "EEUU": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇺🇸" },
-            "Argelia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇩🇿" },
-            "Eslovenia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇸🇮" },
-            "Alemania": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇩🇪" },
+            "República de Corea": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇰🇷" },
+            "República Checa": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"A", bandera:"🇨🇿" },
+            "Canadá": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇨🇦" },
+            "Bosnia y Herzegovina": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇧🇦" },
+            "Catar": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇶🇦" },
+            "Suiza": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"B", bandera:"🇨🇭" },
+            "Brasil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇧🇷" },
+            "Marruecos": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇲🇦" },
+            "Haití": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🇭🇹" },
+            "Escocia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"C", bandera:"🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
+            "Estados Unidos": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇺🇸" },
+            "Paraguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇵🇾" },
             "Australia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇦🇺" },
-            "Serbia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇷🇸" },
-            "Ghana": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇬🇭" },
-            "Países Bajos": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇳🇱" },
-            "Dinamarca": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇩🇰" },
-            "Japón": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇯🇵" },
-            "Camerún": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇨🇲" },
-            "Italia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇮🇹" },
-            "Paraguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, font:"F", grupo:"F", bandera:"🇵🇾" },
-            "Nueva Zelanda": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇳🇿" },
-            "Eslovaquia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇸🇰" },
-            "Brasil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇧🇷" },
-            "Corea del Norte": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇰🇵" },
-            "Costa de Marfil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇨🇮" },
-            "Portugal": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇵🇹" },
+            "Turquía": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"D", bandera:"🇹🇷" },
+            "Alemania": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇩🇪" },
+            "Curazao": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇨🇼" },
+            "Costa de Marfil": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇨🇮" },
+            "Ecuador": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"E", bandera:"🇪🇨" },
+            "Países Bajos": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇳🇱" },
+            "Japón": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇯🇵" },
+            "Suecia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇸🇪" },
+            "Túnez": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"F", bandera:"🇹🇳" },
+            "Bélgica": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇧🇪" },
+            "Egipto": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇪🇬" },
+            "RI de Irán": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇮🇷" },
+            "Nueva Zelanda": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"G", bandera:"🇳🇿" },
             "España": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇪🇸" },
-            "Suiza": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇨🇭" },
-            "Honduras": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇭🇳" },
-            "Chile": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇨🇱" }
+            "Cabo Verde": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇨🇻" },
+            "Arabia Saudí": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇸🇦" },
+            "Uruguay": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"H", bandera:"🇺🇾" },
+            "Francia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"I", bandera:"🇫🇷" },
+            "Senegal": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"I", bandera:"🇸🇳" },
+            "Irak": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"I", bandera:"🇮🇶" },
+            "Noruega": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"I", bandera:"🇳🇴" },
+            "Argentina": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"J", bandera:"🇦🇷" },
+            "Argelia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"J", bandera:"🇩🇿" },
+            "Austria": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"J", bandera:"🇦🇹" },
+            "Jordania": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"J", bandera:"🇯🇴" },
+            "Portugal": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"K", bandera:"🇵🇹" },
+            "RD Congo": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"K", bandera:"🇨🇩" },
+            "Uzbekistán": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"K", bandera:"🇺🇿" },
+            "Colombia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"K", bandera:"🇨🇴" },
+            "Inglaterra": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"L", bandera:"🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+            "Croacia": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"L", bandera:"🇭🇷" },
+            "Ghana": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, font_bold: true, grupo:"L", bandera:"🇬🇭" },
+            "Panamá": { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, grupo:"L", bandera:"🇵🇦" }
         };
 
+        // CALENDARIO CON FECHAS Y HORARIOS ASIGNADOS INTERNAMENTE
         const partidosFaseGrupos = [
-            { id: 1, grupo: "A", local: "México", visitante: "Sudáfrica" },
-            { id: 2, grupo: "A", local: "Uruguay", visitante: "Francia" },
-            { id: 3, grupo: "B", local: "Corea del Sur", visitante: "Grecia" },
-            { id: 4, grupo: "B", local: "Argentina", visitante: "Nigeria" },
-            { id: 5, grupo: "C", local: "Inglaterra", visitante: "EEUU" }, // BUG SOLUCIONADO: Corregido 'group' por 'grupo'
-            { id: 6, grupo: "C", local: "Argelia", visitante: "Eslovenia" },
-            { id: 7, grupo: "D", local: "Alemania", visitante: "Australia" },
-            { id: 8, grupo: "D", local: "Serbia", visitante: "Ghana" },
-            { id: 9, grupo: "E", local: "Países Bajos", visitante: "Dinamarca" },
-            { id: 10, grupo: "E", local: "Japón", visitante: "Camerún" },
-            { id: 11, grupo: "F", local: "Italia", visitante: "Paraguay" },
-            { id: 12, grupo: "F", local: "Nueva Zelanda", visitante: "Eslovaquia" },
-            { id: 13, grupo: "G", local: "Costa de Marfil", visitante: "Portugal" },
-            { id: 14, grupo: "G", local: "Brasil", visitante: "Corea del Norte" },
-            { id: 15, grupo: "H", local: "Honduras", visitante: "Chile" },
-            { id: 16, grupo: "H", local: "España", visitante: "Suiza" },
-            { id: 17, grupo: "A", local: "Sudáfrica", visitante: "Uruguay" },
-            { id: 18, grupo: "A", local: "Francia", visitante: "México" },
-            { id: 19, grupo: "B", local: "Grecia", visitante: "Nigeria" },
-            { id: 20, grupo: "B", local: "Argentina", visitante: "Corea del Sur" },
-            { id: 21, grupo: "D", local: "Alemania", visitante: "Serbia" }, // Ajustado grupo visual
-            { id: 22, grupo: "C", local: "Eslovenia", visitante: "EEUU" },
-            { id: 23, grupo: "C", local: "Inglaterra", visitante: "Argelia" },
-            { id: 24, geometry: "D", grupo: "D", local: "Ghana", visitante: "Australia" },
-            { id: 25, grupo: "E", local: "Países Bajos", visitante: "Japón" },
-            { id: 26, grupo: "E", local: "Camerún", visitante: "Dinamarca" },
-            { id: 27, grupo: "F", local: "Eslovaquia", visitante: "Paraguay" },
-            { id: 28, grupo: "F", local: "Italia", visitante: "Nueva Zelanda" },
-            { id: 29, grupo: "G", local: "Brasil", visitante: "Costa de Marfil" },
-            { id: 30, grupo: "G", local: "Portugal", visitante: "Corea del Norte" },
-            { id: 31, grupo: "H", local: "Chile", visitante: "Suiza" },
-            { id: 32, grupo: "H", local: "España", visitante: "Honduras" },
-            { id: 33, grupo: "A", local: "México", visitante: "Uruguay" },
-            { id: 34, grupo: "A", local: "Francia", visitante: "Sudáfrica" },
-            { id: 35, grupo: "B", local: "Nigeria", visitante: "Corea del Sur" },
-            { id: 36, grupo: "B", local: "Grecia", visitante: "Argentina" },
-            { id: 37, grupo: "C", local: "Eslovenia", visitante: "Inglaterra" },
-            { id: 38, grupo: "C", local: "EEUU", visitante: "Argelia" },
-            { id: 39, grupo: "D", local: "Ghana", visitante: "Alemania" },
-            { id: 40, grupo: "D", local: "Australia", visitante: "Serbia" },
-            { id: 41, grupo: "F", local: "Eslovaquia", visitante: "Italia" },
-            { id: 42, grupo: "F", local: "Paraguay", visitante: "Nueva Zelanda" },
-            { id: 43, grupo: "E", local: "Dinamarca", visitante: "Japón" },
-            { id: 44, grupo: "E", local: "Camerún", visitante: "Países Bajos" },
-            { id: 45, grupo: "G", local: "Portugal", visitante: "Brasil" },
-            { id: 46, grupo: "G", local: "Corea del Norte", visitante: "Costa de Marfil" },
-            { id: 47, grupo: "H", local: "Chile", visitante: "España" },
-            { id: 48, grupo: "H", local: "Suiza", visitante: "Honduras" }
+            { id: 1, grupo: "A", local: "México", visitante: "Sudáfrica", fecha: "Jueves, 11 de junio 2026", hora: "15:00" },
+            { id: 2, grupo: "A", local: "República de Corea", visitante: "República Checa", fecha: "Jueves, 11 de junio 2026", hora: "22:00" },
+            { id: 3, grupo: "B", local: "Canadá", visitante: "Bosnia y Herzegovina", fecha: "Viernes, 12 de junio 2026", hora: "15:00" },
+            { id: 4, grupo: "D", local: "Estados Unidos", visitante: "Paraguay", fecha: "Viernes, 12 de junio 2026", hora: "21:00" },
+            { id: 5, grupo: "B", local: "Catar", visitante: "Suiza", fecha: "Sábado, 13 de junio 2026", hora: "15:00" },
+            { id: 6, grupo: "C", local: "Brasil", visitante: "Marruecos", fecha: "Sábado, 13 de junio 2026", hora: "18:00" },
+            { id: 7, grupo: "C", local: "Haití", visitante: "Escocia", fecha: "Sábado, 13 de junio 2026", hora: "21:00" },
+            { id: 8, grupo: "D", local: "Australia", visitante: "Turquía", fecha: "Sábado, 13 de junio 2026", hora: "00:00" },
+            { id: 9, grupo: "E", local: "Alemania", visitante: "Curazao", fecha: "Domingo, 14 de junio 2026", hora: "13:00" },
+            { id: 10, grupo: "F", local: "Países Bajos", visitante: "Japón", fecha: "Domingo, 14 de junio 2026", hora: "16:00" },
+            { id: 11, grupo: "E", local: "Costa de Marfil", visitante: "Ecuador", fecha: "Domingo, 14 de junio 2026", hora: "19:00" },
+            { id: 12, group: "F", local: "Suecia", visitante: "Túnez", fecha: "Domingo, 14 de junio 2026", hora: "22:00" },
+            { id: 13, grupo: "H", local: "España", visitante: "Cabo Verde", fecha: "Lunes, 15 de junio 2026", hora: "12:00" },
+            { id: 14, grupo: "G", local: "Bélgica", visitante: "Egipto", fecha: "Lunes, 15 de junio 2026", hora: "15:00" },
+            { id: 15, grupo: "H", local: "Arabia Saudí", visitante: "Uruguay", fecha: "Lunes, 15 de junio 2026", hora: "18:00" },
+            { id: 16, grupo: "G", local: "RI de Irán", visitante: "Nueva Zelanda", fecha: "Lunes, 15 de junio 2026", hora: "21:00" },
+            { id: 17, grupo: "I", local: "Francia", visitante: "Senegal", fecha: "Martes, 16 de junio 2026", hora: "15:00" },
+            { id: 18, grupo: "I", local: "Irak", visitante: "Noruega", fecha: "Martes, 16 de junio 2026", hora: "18:00" },
+            { id: 19, grupo: "J", local: "Argentina", visitante: "Argelia", fecha: "Martes, 16 de junio 2026", hora: "21:00" },
+            { id: 20, grupo: "J", local: "Austria", visitante: "Jordania", fecha: "Martes, 16 de junio 2026", hora: "00:00" },
+            { id: 21, grupo: "K", local: "Portugal", visitante: "RD Congo", fecha: "Miércoles, 17 de junio 2026", hora: "13:00" },
+            { id: 22, grupo: "L", local: "Inglaterra", visitante: "Croacia", fecha: "Miércoles, 17 de junio 2026", hora: "16:00" },
+            { id: 23, grupo: "L", local: "Ghana", visitante: "Panamá", fecha: "Miércoles, 17 de junio 2026", hora: "19:00" },
+            { id: 24, grupo: "K", local: "Uzbekistán", visitante: "Colombia", fecha: "Miércoles, 17 de junio 2026", hora: "22:00" },
+            { id: 25, grupo: "A", local: "República Checa", visitante: "Sudáfrica", fecha: "Jueves, 18 de junio 2026", hora: "12:00" },
+            { id: 26, grupo: "B", local: "Suiza", visitante: "Bosnia y Herzegovina", fecha: "Jueves, 18 de junio 2026", hora: "15:00" },
+            { id: 27, grupo: "B", local: "Canadá", visitante: "Catar", fecha: "Jueves, 18 de junio 2026", hora: "18:00" },
+            { id: 28, grupo: "A", local: "México", visitante: "República de Corea", fecha: "Jueves, 18 de junio 2026", hora: "21:00" },
+            { id: 29, grupo: "D", local: "Estados Unidos", visitante: "Australia", fecha: "Viernes, 19 de junio 2026", hora: "15:00" },
+            { id: 30, grupo: "C", local: "Escocia", visitante: "Marruecos", fecha: "Viernes, 19 de junio 2026", hora: "18:00" },
+            { id: 31, grupo: "C", local: "Brasil", visitante: "Haití", fecha: "Viernes, 19 de junio 2026", hora: "21:00" },
+            { id: 32, grupo: "D", local: "Turquía", visitante: "Paraguay", fecha: "Viernes, 19 de junio 2026", hora: "00:00" },
+            { id: 33, grupo: "F", local: "Países Bajos", visitante: "Suecia", fecha: "Sábado, 20 de junio 2026", hora: "13:00" },
+            { id: 34, grupo: "E", local: "Alemania", visitante: "Costa de Marfil", fecha: "Sábado, 20 de junio 2026", hora: "16:00" },
+            { id: 35, grupo: "E", local: "Ecuador", visitante: "Curazao", fecha: "Sábado, 20 de junio 2026", hora: "22:00" },
+            { id: 36, grupo: "F", local: "Túnez", visitante: "Japón", fecha: "Sábado, 20 de junio 2026", hora: "00:00" },
+            { id: 37, grupo: "H", local: "España", visitante: "Arabia Saudí", fecha: "Domingo, 21 de junio 2026", hora: "12:00" },
+            { id: 38, grupo: "G", local: "Bélgica", visitante: "RI de Irán", fecha: "Domingo, 21 de junio 2026", hora: "15:00" },
+            { id: 39, grupo: "H", local: "Uruguay", visitante: "Cabo Verde", fecha: "Domingo, 21 de junio 2026", hora: "18:00" },
+            { id: 40, grupo: "G", local: "Nueva Zelanda", visitante: "Egipto", fecha: "Domingo, 21 de junio 2026", hora: "21:00" },
+            { id: 41, grupo: "J", local: "Argentina", visitante: "Austria", fecha: "Lunes, 22 de junio 2026", hora: "13:00" },
+            { id: 42, grupo: "I", local: "Francia", visitante: "Irak", fecha: "Lunes, 22 de junio 2026", hora: "17:00" },
+            { id: 43, grupo: "I", local: "Noruega", visitante: "Senegal", fecha: "Lunes, 22 de junio 2026", hora: "20:00" },
+            { id: 44, grupo: "J", local: "Jordania", visitante: "Argelia", fecha: "Lunes, 22 de junio 2026", hora: "23:00" },
+            { id: 45, grupo: "K", local: "Portugal", visitante: "Uzbekistán", fecha: "Martes, 23 de junio 2026", hora: "13:00" },
+            { id: 46, grupo: "L", local: "Inglaterra", visitante: "Ghana", fecha: "Martes, 23 de junio 2026", hora: "16:00" },
+            { id: 47, grupo: "L", local: "Panamá", visitante: "Croacia", fecha: "Martes, 23 de junio 2026", hora: "19:00" },
+            { id: 48, grupo: "K", local: "Colombia", visitante: "RD Congo", fecha: "Martes, 23 de junio 2026", hora: "22:00" },
+            { id: 49, grupo: "B", local: "Suiza", visitante: "Canadá", fecha: "Miércoles, 24 de junio 2026", hora: "15:00" },
+            { id: 50, grupo: "B", local: "Bosnia y Herzegovina", visitante: "Catar", fecha: "Miércoles, 24 de junio 2026", hora: "15:00" },
+            { id: 51, grupo: "C", local: "Escocia", visitante: "Brasil", fecha: "Miércoles, 24 de junio 2026", hora: "18:00" },
+            { id: 52, grupo: "C", local: "Marruecos", visitante: "Haití", fecha: "Miércoles, 24 de junio 2026", hora: "18:00" },
+            { id: 53, grupo: "A", local: "República Checa", visitante: "México", fecha: "Miércoles, 24 de junio 2026", hora: "21:00" },
+            { id: 54, grupo: "A", local: "Sudáfrica", visitante: "República de Corea", fecha: "Miércoles, 24 de junio 2026", hora: "21:00" },
+            { id: 55, grupo: "E", local: "Curazao", visitante: "Costa de Marfil", fecha: "Jueves, 25 de junio 2026", hora: "16:00" },
+            { id: 56, grupo: "E", local: "Ecuador", visitante: "Alemania", fecha: "Jueves, 25 de junio 2026", hora: "16:00" },
+            { id: 57, grupo: "F", local: "Japón", visitante: "Suecia", fecha: "Jueves, 25 de junio 2026", hora: "19:00" },
+            { id: 58, grupo: "F", local: "Túnez", visitante: "Países Bajos", fecha: "Jueves, 25 de junio 2026", hora: "19:00" },
+            { id: 59, grupo: "D", local: "Turquía", visitante: "Estados Unidos", fecha: "Jueves, 25 de junio 2026", hora: "22:00" },
+            { id: 60, grupo: "D", local: "Paraguay", visitante: "Australia", fecha: "Jueves, 25 de junio 2026", hora: "22:00" },
+            { id: 61, grupo: "I", local: "Noruega", visitante: "Francia", fecha: "Viernes, 26 de junio 2026", hora: "15:00" },
+            { id: 62, grupo: "I", local: "Senegal", visitante: "Irak", fecha: "Viernes, 26 de junio 2026", hora: "15:00" },
+            { id: 63, grupo: "H", local: "Cabo Verde", visitante: "Arabia Saudí", fecha: "Viernes, 26 de junio 2026", hora: "20:00" },
+            { id: 64, grupo: "H", local: "Uruguay", visitante: "España", fecha: "Viernes, 26 de junio 2026", hora: "20:00" },
+            { id: 65, grupo: "G", local: "Egipto", visitante: "RI de Irán", fecha: "Viernes, 26 de junio 2026", hora: "23:00" },
+            { id: 66, grupo: "G", local: "Nueva Zelanda", visitante: "Bélgica", fecha: "Viernes, 26 de junio 2026", hora: "23:00" },
+            { id: 67, grupo: "L", local: "Panamá", visitante: "Inglaterra", fecha: "Sábado, 27 de junio 2026", hora: "17:00" },
+            { id: 68, grupo: "L", local: "Croacia", visitante: "Ghana", fecha: "Sábado, 27 de junio 2026", hora: "17:00" },
+            { id: 69, grupo: "K", local: "Colombia", visitante: "Portugal", fecha: "Sábado, 27 de junio 2026", hora: "19:30" },
+            { id: 70, grupo: "K", local: "RD Congo", visitante: "Uzbekistán", fecha: "Sábado, 27 de junio 2026", hora: "19:30" },
+            { id: 71, grupo: "J", local: "Argelia", visitante: "Austria", fecha: "Sábado, 27 de junio 2026", hora: "22:00" },
+            { id: 72, grupo: "J", local: "Jordania", visitante: "Argentina", fecha: "Sábado, 27 de junio 2026", hora: "22:00" }
         ];
 
         // CONTROLADOR DE PESTAÑAS
@@ -224,7 +265,7 @@
             }
         }
 
-        // RENDERIZAR PARTIDOS (VISTA PARTICIPANTE)
+        // RENDERIZAR PARTIDOS (INCLUYENDO LA COMPLETA FECHA Y HORA OFICIAL ABAJO)
         function cargarPartidos() {
             const container = document.getElementById('contenedor-partidos');
             container.innerHTML = '';
@@ -233,20 +274,25 @@
                 const bV = equiposMundial[p.visitante]?.bandera || "🏳️";
                 
                 container.insertAdjacentHTML('beforeend', `
-                    <div class="flex items-center justify-between p-3 hover:bg-slate-800/20 transition gap-2">
-                        <div class="flex items-center gap-2 w-1/3 justify-end text-right">
-                            <span class="text-xs md:text-sm font-semibold text-slate-200">${p.local}</span>
-                            <span class="text-base md:text-lg">${bL}</span>
+                    <div class="p-3 hover:bg-slate-800/20 transition flex flex-col gap-1">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2 w-1/3 justify-end text-right">
+                                <span class="text-xs md:text-sm font-semibold text-slate-200">${p.local}</span>
+                                <span class="text-base md:text-lg">${bL}</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-1.5 bg-slate-950/40 p-1.5 rounded-xl border border-slate-700/40 shrink-0">
+                                <input type="number" min="0" id="p-${p.id}-L" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center font-black text-sm text-emerald-400 py-1 focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:margin-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:margin-0 [&::-webkit-inner-spin-button]:appearance-none">
+                                <span class="text-slate-600 text-xs font-bold px-0.5">vs</span>
+                                <input type="number" min="0" id="p-${p.id}-V" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center font-black text-sm text-emerald-400 py-1 focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:margin-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:margin-0 [&::-webkit-inner-spin-button]:appearance-none">
+                            </div>
+                            <div class="flex items-center gap-2 w-1/3 justify-start text-left">
+                                <span class="text-base md:text-lg">${bV}</span>
+                                <span class="text-xs md:text-sm font-semibold text-slate-200">${p.visitante}</span>
+                                <span class="bg-slate-800 text-slate-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-slate-700">GRP ${p.grupo}</span>
+                            </div>
                         </div>
-                        <div class="flex items-center justify-center gap-1.5 bg-slate-950/40 p-1.5 rounded-xl border border-slate-700/40 shrink-0">
-                            <input type="number" min="0" id="p-${p.id}-L" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center font-black text-sm text-emerald-400 py-1 focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:margin-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:margin-0 [&::-webkit-inner-spin-button]:appearance-none">
-                            <span class="text-slate-600 text-xs font-bold px-0.5">vs</span>
-                            <input type="number" min="0" id="p-${p.id}-V" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center font-black text-sm text-emerald-400 py-1 focus:outline-none focus:border-emerald-500 [appearance:textfield] [&::-webkit-outer-spin-button]:margin-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:margin-0 [&::-webkit-inner-spin-button]:appearance-none">
-                        </div>
-                        <div class="flex items-center gap-2 w-1/3 justify-start text-left">
-                            <span class="text-base md:text-lg">${bV}</span>
-                            <span class="text-xs md:text-sm font-semibold text-slate-200">${p.visitante}</span>
-                            <span class="bg-slate-800 text-slate-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-slate-700">GRP ${p.grupo}</span>
+                        <div class="text-center text-[10px] text-slate-400/80 font-medium">
+                            <i class="fa-regular fa-calendar-days mr-1 text-emerald-500/60"></i>${p.fecha} – <i class="fa-regular fa-clock ml-1 mr-0.5 text-emerald-500/60"></i>${p.hora} EST
                         </div>
                     </div>
                 `);
@@ -356,12 +402,11 @@
             dlAnchorElem.click();
         }
 
-        // MOTOR MATEMÁTICO CORREGIDO Y ROBUSTO
+        // MOTOR MATEMÁTICO (5, 3, 1 pts)
         async function ejecutarCalculoRankingYGrupos() {
             const tabla = document.getElementById('tabla-ranking');
             tabla.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Calculando estadísticas familiares...</td></tr>`;
             
-            // Reiniciar tablas matemáticas limpias
             for (let eq in equiposMundial) {
                 equiposMundial[eq].pj = 0; equiposMundial[eq].pg = 0; equiposMundial[eq].pe = 0;
                 equiposMundial[eq].pp = 0; equiposMundial[eq].gf = 0; equiposMundial[eq].gc = 0;
@@ -376,7 +421,7 @@
                 const resultadosReales = master.resultados || {};
                 const participantes = master.participantes || [];
 
-                // 1. PROCESAR TABLA DE POSICIONES DE LOS EQUIPOS REALES
+                // 1. PROCESAR TABLA DE POSICIONES EN VIVO
                 partidosFaseGrupos.forEach(partido => {
                     const res = resultadosReales[partido.id];
                     
@@ -412,7 +457,7 @@
 
                 renderizarTablasVisualesGrupos();
 
-                // 2. CALCULAR EL RANKING CON ALGORITMO OFICIAL CORREGIDO (5, 3, 1 pts)
+                // 2. CALCULAR RANKING FAMILIAR
                 let ranking = [];
                 for (const archivo of participantes) {
                     try {
@@ -432,7 +477,6 @@
                             const rL = parseInt(real.L); const rV = parseInt(real.V);
                             const pL = parseInt(prono.L); const pV = parseInt(prono.V);
 
-                            // REGLAS MATEMÁTICAS PENDIENTES IMPLEMENTADAS SÓLIDAMENTE:
                             const diferenciaReal = rL - rV;
                             const diferenciaProno = pL - pV;
 
@@ -440,11 +484,11 @@
                             const tendenciaProno = pL > pV ? 1 : (pL < pV ? -1 : 0);
 
                             if (rL === pL && rV === pV) {
-                                puntosUsuario += 5; // Acierto Exacto
+                                puntosUsuario += 5; 
                             } else if (tendenciaReal === tendenciaProno && diferenciaReal === diferenciaProno) {
-                                puntosUsuario += 3; // Diferencia de Goles Exacta (Ej: Predijo 2-0, Quedó 3-1)
+                                puntosUsuario += 3; 
                             } else if (tendenciaReal === tendenciaProno) {
-                                puntosUsuario += 1; // Tendencia general / Solo Ganador o Empate
+                                puntosUsuario += 1; 
                             }
                         }
                         ranking.push({ usuario: userJson.usuario || archivo, puntos: puntosUsuario });
@@ -475,12 +519,12 @@
             }
         }
 
-        // RENDERIZAR TABLAS VISUALES DE CADA GRUPO MUNDIALISTA
+        // RENDERIZAR TABLAS VISUALES DE LOS GRUPOS (De la A a la L)
         function renderizarTablasVisualesGrupos() {
             const container = document.getElementById('contenedor-tablas-grupos');
             container.innerHTML = '';
 
-            const letrasGrupos = ["A", "B", "C", "D", "E", "F", "G", "H"];
+            const letrasGrupos = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
             
             letrasGrupos.forEach(letra => {
                 let equiposGrupo = [];
@@ -490,7 +534,6 @@
                     }
                 }
 
-                // Criterios de Desempate Oficiales: Puntos -> Gol Diferencia -> Goles a Favor
                 equiposGrupo.sort((a, b) => {
                     if (b.pts !== a.pts) return b.pts - a.pts;
                     let difA = a.gf - a.gc;
